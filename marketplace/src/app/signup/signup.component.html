@@ -1,0 +1,161 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+    <!-- Default form login -->
+<form [formGroup]="signinFormGroup"  class="text-center border border-light p-5">
+
+  <p class="h4 mb-4">
+    Se connecter</p>
+
+  <!-- Email -->
+  <input type="email" id="email" class="form-control mb-4" placeholder="Email"  formControlName="mail">
+
+  <!-- Password -->
+  <input type="password" id="passwordLogin" class="form-control mb-4" placeholder="Mot de passe"  formControlName="password" aria-describedby="error" >
+  <small *ngIf="error" id="error" class="form-text  mb-4" style="color:red">
+   Email ou Mot de passe incorrecte
+</small>
+
+  <div class="d-flex justify-content-around">
+   <div>
+   <!--     Remember me -->
+      <mdb-checkbox [formControl]="rememberMe" [default]="true">Remember me</mdb-checkbox>
+    </div> 
+   <!--   <div>
+     <a href="">Forgot password?</a>
+    </div> -->
+  </div>
+
+  <!-- Sign in button -->
+  <button mdbBtn color="info" block="true" class="my-4" type="button" (click)="signin()">Se connecter</button>
+
+
+
+  <!-- Social login -->
+  <p>ou connectez-vous avec:</p>
+
+  <a type="button" class="light-blue-text mx-2">
+    <!-- <i class="fab fa-facebook-f"></i> -->
+    <mdb-icon fab icon="facebook"></mdb-icon>
+  </a>
+
+  <a type="button" class="light-blue-text mx-2">
+    <!-- <i class="fab fa-linkedin-in"></i> -->
+    <mdb-icon fab icon="google"></mdb-icon>
+  </a>
+
+
+</form>
+<!-- Default form login -->
+  </div>
+  <div class="col-md-6">
+<!-- Default form register -->
+<form [formGroup]="signupFormGroup"  class="text-center border border-light p-5">
+
+    <p class="h4 mb-4">S'inscrire</p>
+
+    <div class="form-row mb-4">
+      <div class="col-md-6">
+        <input type="text" id="firstname" class="form-control" placeholder="Prenom" formControlName="firstname">
+        <div *ngIf="signupFormGroup.controls['firstname'].invalid && (signupFormGroup.controls['firstname'].dirty || signupFormGroup.controls['firstname'].touched)" >
+          
+          <div *ngIf="signupFormGroup.controls['firstname'].errors.maxlength">
+            <small  class="form-text text">
+                le prenom  ne doit pas depasser 10 caractères
+            </small>
+      </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+       
+        <input type="text" id="lastname" class="form-control" placeholder="Nom" formControlName="lastname">
+        <div *ngIf="signupFormGroup.controls['lastname'].invalid && (signupFormGroup.controls['lastname'].dirty || signupFormGroup.controls['lastname'].touched)" >
+          
+          <div *ngIf="signupFormGroup.controls['lastname'].errors.maxlength">
+            <small  class="form-text text">
+                le nom  ne doit pas depasser 10 caractères
+            </small>
+      </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row mb-4">
+        <div class="col-md-6">
+            <input type="text" id="phoneNumber" class="form-control" placeholder="Numero de telephone" formControlName="phoneNumber" aria-describedby="test">
+            <div *ngIf="signupFormGroup.controls['phoneNumber'].invalid && (signupFormGroup.controls['phoneNumber'].dirty || signupFormGroup.controls['phoneNumber'].touched)" >
+                <div *ngIf="signupFormGroup.controls['phoneNumber'].hasError('hasNumber') ">
+                    <small  class="form-text text">
+                        Numero de telephone invalide
+                    </small>
+              </div>
+              <div *ngIf="signupFormGroup.controls['phoneNumber'].errors.maxlength">
+                <small  class="form-text text">
+                    Le numero doit etre  8 caractères 
+                </small>
+          </div>
+            </div>
+          </div>
+        <div class="col-md-6">
+         
+            <input type="text" id="address" class="form-control" placeholder="Adresse" formControlName="address" >
+            <div *ngIf="signupFormGroup.controls['address'].invalid && (signupFormGroup.controls['address'].dirty || signupFormGroup.controls['address'].touched)" >
+          
+            <div *ngIf="signupFormGroup.controls['address'].errors.maxlength">
+              <small  class="form-text text">
+                  l'adresse ne doit pas depasser 20 caractères
+              </small>
+        </div>
+          </div>
+        </div>
+      </div>
+    <div class="form-row mb-4">
+        <div class="col-md-6">
+            <input type="email" id="mail" class="form-control" placeholder="Email" formControlName="mail">
+            <div *ngIf="signupFormGroup.controls['mail'].invalid && (signupFormGroup.controls['mail'].dirty || signupFormGroup.controls['mail'].touched)" >
+                <div *ngIf="signupFormGroup.controls['mail'].hasError('email') ">
+                    <small  class="form-text text">
+                       Email invalide
+                    </small>
+              </div>
+            </div>        
+        </div>
+        <div class="col-md-6">
+         
+            <input formControlName="password" type="password" id="password" class="form-control" placeholder="Mot de passe" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+            <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                Au moins 8 caractères et 1 chiffre
+            </small>
+            
+        </div>
+      </div>
+
+    
+    <!-- Sign up button -->
+    <button mdbBtn color="info" block="true" class="my-4" type="button" (click)="signup()" [class.disabled]="signupFormGroup.invalid">s'inscrire</button>
+
+    <!-- Social register -->
+    <p>ou inscrivez-vous avec:</p>
+
+    <a type="button" class="light-blue-text mx-2">
+      <mdb-icon fab icon="facebook"></mdb-icon>
+    </a>
+
+    <a type="button" class="light-blue-text mx-2">
+        <mdb-icon fab icon="google"></mdb-icon>
+    </a>
+  
+
+    <hr>
+
+    <!-- Terms of service -->
+    <p>En cliquant
+      <em>S'inscrire</em> vous acceptez notre
+      <a  target="_blank">conditions d'utilisation</a> 
+
+  </form>
+  <!-- Default form register -->
+  </div>
+</div>
+  
+  
+  </div>

@@ -1,0 +1,61 @@
+
+
+    
+<div class="container right-side">
+    <div class="row">
+  
+      <!-- Grid column -->
+      <div class="col-md-2" style="padding-left:0;">
+    
+            <div class="list-group" id="list-tab" role="tablist">
+                <b>
+                    <a routerLink="/account"  class="list-group-item list-group-item-action "> Mon Compte </a>
+                    <a routerLink="/account/settings" class="list-group-item list-group-item-action"  >Informations personnelle</a>
+                    <a routerLink="/account/address" class="list-group-item list-group-item-action" >Mes adresses</a>
+                    <a routerLink="/account/orders" class="list-group-item list-group-item-action " >Mes commandes</a>
+                    <a  routerLink="/account/reviews" class="list-group-item list-group-item-action active" >Mes avis</a>
+                </b>
+                </div>
+      </div>
+      <div class="col-md-10" style="margin-top:3%;">
+        <div *ngIf="customer !== undefined && customer !== null" class="container">
+           
+              <mdb-card *ngFor="let review of customer.reviews"  class="mb-3" borderColor="border-light" >
+                  <mdb-card-body>
+                   <div class="row">
+                     <div class="col-md-1">
+ <img *ngIf="review.product != null && review.product.images !== undefined && review.product.images[0]==null" height="50px"  src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" alt="" class="img-fluid z-depth-0">
+ <img *ngIf="review.product != null && review.product.images !== undefined && review.product.images[0]!=null"  height="50px"    src="{{review.product.images[0].path}}" alt="" class="img-fluid z-depth-0"> 
+
+                     </div>
+                     <div class="col-md-3">{{review.product.designation}}</div>
+                     <div class="col-md-2 ">
+                        <mdb-icon  *ngFor="let item of [].constructor(review.note);" fas icon="star"  class="amber-text "></mdb-icon>
+                        <mdb-icon *ngFor="let item of [].constructor(5-review.note);" far icon="star"  class="amber-text "></mdb-icon>
+                     </div>
+                     <div class="col-md-3">{{review.comment}}</div>
+                     <div class="col-md-3"> {{review.reviewDate | date:'fullDate'}}</div>
+                     
+                   </div>
+                  </mdb-card-body>
+                </mdb-card>
+       
+        </div></div>
+      <!-- Grid column -->
+    
+      <!-- Grid column -->
+   
+         
+        
+  
+    
+    </div>
+  </div>
+    <!-- Grid row -->         
+       
+        
+        
+        
+        
+        
+        

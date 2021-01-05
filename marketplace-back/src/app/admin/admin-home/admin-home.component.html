@@ -1,0 +1,175 @@
+<div class="row mb-4">
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Vendeurs</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{sellersCount}}</div>
+          </div>
+          <div class="col-auto">
+            <mdb-icon size="2x" fas icon="users-cog"></mdb-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Clients</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{customersCount}}</div>
+          </div>
+          <div class="col-auto">
+            <mdb-icon size="2x" fas icon="users"></mdb-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Commandes</div>
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ordersCount}}</div>
+              </div>
+             
+            </div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Requests Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Produits</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{productsCount}}</div>
+          </div>
+          <div class="col-auto">
+            <mdb-icon size="2x" fas icon="shopping-cart"></mdb-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-3">
+    <div *ngIf="chartLabels.length!=0" class="col-6">
+      <h3>Produits par Categorie</h3>
+        <div  style="display: block">
+            <canvas mdbChart
+                [chartType]="chartType"
+                [datasets]="chartDatasets"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+    </div>
+    <div *ngIf="chartLabels2.length!=0" class="col-6">
+        <h3>Sous Categorie par Categorie</h3>
+          <div  style="display: block">
+              <canvas mdbChart
+                  [chartType]="chartType"
+                  [datasets]="chartDatasets2"
+                  [labels]="chartLabels2"
+                  [colors]="chartColors"
+                  [options]="chartOptions"
+                  [legend]="true"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+              </canvas>
+            </div>
+      </div>
+   
+  </div>
+  <div class="row mb-3">
+    <div *ngIf="chartLabels3.length!=0" class="col-6">
+      <h3>Produits par Vendeur</h3>
+        <div  style="display: block">
+            <canvas mdbChart
+                [chartType]="'bar'"
+                [datasets]="chartDatasets3"
+                [labels]="chartLabels3"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="false"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+    </div>
+    <div *ngIf="chartLabels4.length!=0" class="col-6">
+        <h3>Commandes par Vendeur</h3>
+          <div  style="display: block">
+              <canvas mdbChart
+                  [chartType]="'bar'"
+                  [datasets]="chartDatasets4"
+                  [labels]="chartLabels4"
+                  [colors]="chartColors"
+                  [options]="chartOptions"
+                  [legend]="false"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+              </canvas>
+            </div>
+      </div>
+   
+  </div>
+  <div class="row mb-3">
+    <div *ngIf="chartLabels5.length!=0" class="col-6">
+      <h3>Commandes par Client</h3>
+        <div  style="display: block">
+            <canvas mdbChart
+                [chartType]="'bar'"
+                [datasets]="chartDatasets5"
+                [labels]="chartLabels5"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="false"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+    </div>
+    <div *ngIf="chartLabels6.length!=0" class="col-6">
+        <h3>Avis par Client</h3>
+          <div  style="display: block">
+              <canvas mdbChart
+                  [chartType]="'bar'"
+                  [datasets]="chartDatasets6"
+                  [labels]="chartLabels6"
+                  [colors]="chartColors"
+                  [options]="chartOptions"
+                  [legend]="false"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+              </canvas>
+            </div>
+      </div>
+   
+  </div>

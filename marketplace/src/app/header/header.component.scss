@@ -1,0 +1,14 @@
+.row {
+    width: 100%;
+}
+.search{
+    width: 25%;
+    margin-left: 25%  
+}
+.search .form-control, .search .form-inline,.search .dropdown-menu {
+    width: 100%; 
+    display: block;
+}
+.size{
+    float: right;
+}

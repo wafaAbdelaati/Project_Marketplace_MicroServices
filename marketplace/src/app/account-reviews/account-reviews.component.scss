@@ -1,0 +1,25 @@
+.right-side{
+    min-height: 425px;
+    max-width: 100%;
+}
+.row {
+    min-height: inherit;
+}
+.list-group{
+    height: 100%;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+.tab-pane .row{
+    margin-top: 5%;
+}
+.card .card-body .card-text {
+    font-size: 1rem!important;
+ 
+}
+.list-group-item.active {
+    background-color: gainsboro;
+    border-color: gainsboro;
+}
+.card{
+    box-shadow: none;
+}

@@ -1,0 +1,227 @@
+<h3 class="mb-4 h3-responsive ">Nouveau Produit</h3>
+<!-- Horizontal Steppers -->
+<div class="row">
+    <div class="col-md-12">
+  
+      <!-- Stepers Wrapper -->
+      <ul class="stepper stepper-horizontal">
+  
+        <!-- First Step -->
+        <li [class.active]="step==1">
+          <a >
+            <span class="circle">1</span>
+            <span class="label">Première étape </span>
+          </a>
+        </li>
+  
+        <!-- Second Step -->
+        <li [class.active]="step==2">
+          <a >
+            <span class="circle">2</span>
+            <span class="label">Deuxième étape</span>
+          </a>
+        </li>
+  
+        <!-- Third Step -->
+        <li [class.active]="step==3">
+          <a >
+            <span class="circle">3</span>
+            <span class="label">Troisième étape</span>
+          </a>
+        </li>
+  
+      </ul>
+      <!-- /.Stepers Wrapper -->
+  
+    </div>
+  </div>
+  <!-- /.Horizontal Steppers -->
+
+<form>
+   <!-- First Step -->
+   <div [class.none]="step!=1" [class.active]="step==1">
+           
+            <!-- Grid row -->
+            <div class="row justify-content-center">
+        <!-- Grid column -->
+        <div class="col">
+          <!-- Material input -->
+          <div class="md-form mt-0">
+                  <input  required #designation="ngModel" [(ngModel)]="newProduct.designation" name="designation" mdbInput type="text" id="designation" class="form-control">
+                  <label for="designation" class="">Designation</label>
+                  <div *ngIf="designation.invalid && (designation.dirty || designation.touched)">
+                    <mdb-error *ngIf="designation.errors.required">La designation est obligatoire </mdb-error>
+                </div>
+          </div>
+        </div>
+        <!-- Grid column -->
+         <!-- Grid column -->
+         <div class="col">
+            <!-- Material input -->
+            <div class="md-form mt-0">
+                <input required #quantity="ngModel" [(ngModel)]="newProduct.quantity" name="quantity" mdbInput type="number" id="quantity" class="form-control" min="1">
+                <label for="quantity" class="">Quantite</label>
+                <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)">
+                  <mdb-error *ngIf="quantity.errors.required">La quantite est obligatoire </mdb-error>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+      
+          <!-- Grid column -->
+          <div class="col">
+            <!-- Material input -->
+            <div class="md-form mt-0">
+                <input required #price="ngModel" [(ngModel)]="newProduct.price" name="price" mdbInput type="text" id="price" class="form-control">
+                <label for="price" class="">Prix</label>
+                <div *ngIf="price.dirty || price.touched">
+                  <mdb-error *ngIf="price.invalid && price.errors.required">Le prix est obligatoire </mdb-error>
+                  <mdb-error *ngIf="!validator.NumberDoubleOnly(price.value)">Le prix est invalide </mdb-error>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+      <!-- Grid row -->
+    <div class="row justify-content-center">
+        <!-- Grid column -->
+        <div class="col">
+          <!-- Material input -->
+          <div class="md-form mt-0">
+              <textarea  required #description="ngModel" [(ngModel)]="newProduct.description" name="description"  rows="3" type="text" id="description" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+              <label for="description">Description</label>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                <mdb-error *ngIf="description.errors.required">La description est obligatoire </mdb-error>
+            </div>
+          </div>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+      <div class="form-row">
+          <!-- Grid column -->
+          <div class="col">
+            <!-- Material input -->
+            <div class="md-form mt-0">
+                <select required #category="ngModel"  [(ngModel)]="newProduct.category" name="category" (change)="getSubCategories(category.value)"  class="browser-default custom-select">
+                    <option value="0" selected>Choisir une categorie</option>
+                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                    
+                  </select>
+                  <div *ngIf="category.dirty || category.touched">
+                    <mdb-error *ngIf="category.value==0">La categorie est obligatoire </mdb-error>
+                  </div>
+                    
+                
+            </div>
+          </div>
+          <!-- Grid column -->
+      
+          <!-- Grid column -->
+          <div class="col">
+            <!-- Material input -->
+            <div class="md-form mt-0">
+                <select required #subcategory="ngModel"  [(ngModel)]="newProduct.subCategory" name="subCategory"class="browser-default custom-select"   >
+                    <option value="0" selected>Choisir une  sous categorie</option>
+                    <option *ngFor="let subcategory of selectedCategory.subCategories" value="{{subcategory.id}}">{{subcategory.name}}</option>
+                  </select>
+                  <div *ngIf="subcategory.dirty || subcategory.touched">
+                  
+                      <mdb-error *ngIf="subcategory.value==0">La sous categorie est obligatoire </mdb-error>
+                    </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+           <!-- Grid row -->
+      <div class="row">
+          <div class="col">
+              <button [class.disabled]="designation.invalid ||quantity.invalid || price.invalid || description.invalid || category.value==0
+              || subcategory.value==0 || !validator.NumberDoubleOnly(price.value)"
+               (click)="changeStep(2)" type="button" class="btn btn-primary btn-md mt-0">Suivant</button>
+            </div>
+        </div>
+        <!-- Grid row -->
+       
+     
+    
+  </div>
+
+  
+       
+  
+        <!-- Second Step -->
+        <div  [class.none]="step!=2"  [class.active]="step==2">
+            <h4>Caracteristiques  <a (click)="addFeature()" style="float: right" ><mdb-icon far icon="plus-square"></mdb-icon></a></h4>
+            <br>
+              <!-- Grid row -->
+    <div class="row" *ngFor="let feature of newProduct.features">
+        <!-- Grid column -->
+        <div class="col">
+          <!-- Material input -->
+          <div class="md-form mt-0">
+              <input required #featurename="ngModel"  [(ngModel)]="feature.name" [ngModelOptions]="{standalone: true}" mdbInput type="text" id="name" class="form-control">
+              <label for="name" class="">Nom</label>
+              <div *ngIf="featurename.dirty || featurename.touched">
+                  <mdb-error *ngIf="featurename.invalid && featurename.errors.required">Le nom de la caracterstique est obligatoire </mdb-error>
+                  <mdb-error *ngIf="!validator.AlphabetOnly(feature.name)">Le nom de la caracterstique est invalide </mdb-error>
+              </div>
+          </div>
+        </div>
+        <!-- Grid column -->
+    
+        <!-- Grid column -->
+        <div class="col">
+          <!-- Material input -->
+          <div class="md-form mt-0">
+              <input required #featurevalue="ngModel"  [(ngModel)]="feature.value" [ngModelOptions]="{standalone: true}" mdbInput type="text" id="value" class="form-control">
+              <label for="value" class="">Valeur</label>
+              <div *ngIf="featurevalue.dirty || featurevalue.touched">
+                  <mdb-error *ngIf="featurevalue.invalid && featurevalue.errors.required">La valeur de la caracterstique est obligatoire </mdb-error>
+                
+              </div>
+          </div>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+       <!-- Grid row -->
+       <div class="row">
+          <div class="col">
+              <button [class.disabled]="!validator.ListValidation(newProduct.features)" (click)="changeStep(3)" type="button" class="btn btn-primary btn-md mt-0">Suivant</button>
+              <button (click)="changeStep(1)" type="button" class="btn btn-primary btn-md mt-0">Precedent</button>
+              
+            </div>
+        </div>
+        <!-- Grid row -->
+        </div>
+  
+        <!-- Third Step -->
+        <div  [class.none]="step!=3" [class.active]="step==3">
+          
+               <!-- Grid row -->
+       <div class="row">
+        <div class="col">
+          <div class="md-form mt-0 custom-file">
+            <input type="file"(change)="selectFile($event)" class="custom-file-input" id="customFileLang" lang="fr" multiple>
+            <label class="custom-file-label" for="customFileLang">{{fileText}} </label>
+          </div>
+          </div>
+      </div>
+      <!-- Grid row -->
+                   <!-- Grid row -->
+       <div class="row">
+        <div class="col">
+            <button [disabled]="!selectedFiles" (click)="addProduct()"type="button" class="btn btn-custom btn-md mt-0">Valider</button>
+            <button (click)="changeStep(2)" type="button" class="btn btn-primary btn-md mt-0">Precedent</button>
+            
+          </div>
+      </div>
+      <!-- Grid row -->
+          
+        </div>
+      
+      </form>
+  

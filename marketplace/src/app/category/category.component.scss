@@ -1,0 +1,42 @@
+.right-side{
+    min-height: 505px;
+    max-width: 100%;
+}
+.row {
+    min-height: inherit;
+}
+.nav{
+    height: 100%;
+    padding-left: 0;
+    padding-top: 0!important;
+}
+.productCard{
+    margin-bottom: 20px;
+}
+.card {
+    width: 70%;;
+}
+.card-img-top{
+    width: 100%!important;
+    height: 27vh !important;
+    object-fit: fill!important;
+}
+.paginationnav{
+    width: 100%;
+}
+.list-group a {
+    background-color: #eceff1;
+    border : none;
+    padding-bottom: 0;
+    color: #000;
+    
+}
+.right-title{
+    padding-left: 5%;
+    padding-top: 5%;
+    color: #007bff!important;
+}
+.right-title .icone{
+    padding-left: 10%;
+
+}

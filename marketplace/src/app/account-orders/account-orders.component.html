@@ -1,0 +1,156 @@
+
+
+    
+<div class="container right-side">
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-2" style="padding-left:0;">
+  
+          <div class="list-group" id="list-tab" role="tablist">
+              <b>
+                  <a routerLink="/account"  class="list-group-item list-group-item-action "> Mon Compte </a>
+                  <a routerLink="/account/settings" class="list-group-item list-group-item-action"  >Informations personnelle</a>
+                  <a routerLink="/account/address" class="list-group-item list-group-item-action" >Mes adresses</a>
+                  <a routerLink="/account/orders" class="list-group-item list-group-item-action active" >Mes commandes</a>
+                  <a  routerLink="/account/reviews" class="list-group-item list-group-item-action" >Mes avis</a>
+              </b>
+              </div>
+    </div>
+    <div class="col-md-10" style="margin-top:3%;">
+      <div class="container">
+          <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a (click)="change(0)" class="nav-item nav-link" [class.active]="activeTab===0"   role="tab"  aria-selected="true">Tous</a>
+                <a (click)="change(1)" class="nav-item nav-link" [class.active]="activeTab===1"  role="tab"  aria-selected="false">En cours de négociation</a>
+                <a (click)="change(2)" class="nav-item nav-link" [class.active]="activeTab===2"  role="tab"  aria-selected="false">En cours</a>
+                <a (click)="change(3)" class="nav-item nav-link" [class.active]="activeTab===3"  role="tab"  aria-selected="true">Validée</a>
+                <a (click)="change(4)" class="nav-item nav-link" [class.active]="activeTab===4"  role="tab"  aria-selected="true">Historique</a>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <table id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+                      <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Date de la commande</th>
+                        <th class="text-center">total</th>
+                        <th class="text-center">Etat</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                      <tr *ngFor="let order of orders; let id = index ;">
+                        <td>
+                          <span (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true">{{id+1}}</span>
+                        </td>
+                        <td>
+                          <span >{{order.orderDate | date:'medium' }}</span>
+                        </td>
+                        <td>
+                          <span >{{order.amount}} DT</span>
+                        </td>
+                        <td>
+                          <span>{{state[order.state]}}</span>
+                        </td>
+                      
+                     
+                        <td>
+                          <span class="table-remove">
+                            <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0" data-toggle="modal" data-target="#exampleModal"  (click)="show(order.id)" mdbWavesEffect >Details</button>
+                            <button *ngIf="order.state === 'init' " type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="deleteOrder(order)" mdbWavesEffect >Supprimer</button>
+                          </span>
+                        </td>
+            
+                       </tr>
+                    </table>
+              </div>
+              
+            </div>
+ 
+     
+      </div></div>
+    <!-- Grid column -->
+  
+    <!-- Grid column -->
+ 
+       
+        <div mdbModal #content="mdbModal" class="modal  fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" (closed)="onClosed($event)">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Detailles de la commande</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="content.hide()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table *ngIf="selectedOrder !== undefined && selectedOrder !== null" id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+                            <tr>
+                              <th class="text-center">#</th>
+                              <th class="text-center">Produit</th>
+                              <th class="text-center">Vendeur</th>
+                              <th class="text-center">Quantite</th>
+                              <th *ngIf="selectedOrder.state === 'init'"  class="text-center">Prix suggéré</th>
+                              <th class="text-center">Prix accepté</th>
+                              <th *ngIf="selectedOrder.state === 'init' || selectedOrder.state === 'progress'"  class="text-center">Etat</th>
+                              <th *ngIf="selectedOrder.state !== 'init'"  class="text-center">Sous Total</th>
+                              <th *ngIf="selectedOrder.state === 'init'"  class="text-center">Action</th>
+                            </tr>
+                            <tr *ngFor="let item of selectedOrder.details; let id = index ;">
+                             
+                              <td>
+                                <span >{{id+1}}</span>
+                              </td>
+                              <td>
+                                <span >{{item.product.designation }}</span>
+                              </td>
+                              <td>
+                                <span >{{item.seller.firstname }}</span>
+                              </td>
+                              <td>
+                                  <span >{{item.quantity }}</span>
+                                </td>
+                              <td *ngIf="selectedOrder.state === 'init'"  >
+                                <span *ngIf="item.state === 'init'" contenteditable="true" (keyup)="changeValue(id, $event)" >{{item.suggestedPrice}}</span>
+                                    <span *ngIf="item.state === 'progress'"  >
+                                  {{item.suggestedPrice}}</span><span style="padding: 0;"> DT</span>
+                              </td>
+                              <td>
+                                  <span >{{item.approvedPrice}} DT</span>
+                                </td>
+                                <td *ngIf="selectedOrder.state === 'init' || selectedOrder.state === 'progress'"  >
+                                    <span>{{state[item.state]}}</span> 
+                                  </td>
+                                  <td *ngIf="selectedOrder.state !== 'init' "  >
+                                    <span>{{item.approvedPrice * item.quantity }} DT</span> 
+                                  </td>
+                              <td *ngIf="selectedOrder.state === 'init'  " >
+                                <span class="table-remove">
+                                  <button *ngIf=" item.state=== 'init'" type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0" (click)="Accept(selectedOrder,item)" mdbWavesEffect >Accepter</button>
+                                  <button *ngIf=" selectedOrder !== null && selectedOrder.details.length > 1 && item.state=== 'init'"  type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="delete(selectedOrder,item)" mdbWavesEffect >Supprimer</button>
+                                
+                                </span>
+                              </td>
+                  
+                             </tr>
+                          </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-light" data-dismiss="modal" (click)="content.hide()" mdbWavesEffect>Fermer</button>
+                        <button *ngIf="selectedOrder !== undefined && selectedOrder !== null && selectedOrder.state === 'init'" type="button" class="btn btn-primary waves-light" (click)="Negotiate(selectedOrder)" mdbWavesEffect>Negocier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+  
+  </div>
+</div>
+  <!-- Grid row -->         
+     
+      
+      
+      
+      
+      
+      

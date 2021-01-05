@@ -1,0 +1,47 @@
+.right-side{
+    min-height: 425px;
+    max-width: 100%;
+}
+.row {
+    min-height: inherit;
+}
+#list-tab{
+    height: 100%;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+.tab-pane .row{
+    margin-top: 5%;
+}
+.card .card-body .card-text {
+    font-size: 1rem!important;
+ 
+}
+.list-group-item-action.active {
+    background-color: gainsboro;
+    border-color: gainsboro;
+ 
+  
+}
+.nav-item.active{
+
+    font-style: italic;
+    font-weight: bold;
+}
+#orders{
+    margin-top: 2%;
+}
+.modal-lg{
+  max-width: max-content;
+}
+@media all and (min-width: 768px) {
+    tr  {
+      td {
+        vertical-align: middle !important;
+      }
+      span {
+        &:not([class]) {
+          padding: 1rem 1rem;
+        }
+      }
+    }
+  }

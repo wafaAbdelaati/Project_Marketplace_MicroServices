@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row">
+        <h3  >Finaliser votre commande </h3>
+        <br>
+            <!--Grid column-->
+            <div class="mx-auto col-md-12 my-3 text-left">
+      
+              <div  class="card">
+                <div class="card-body">
+               
+                  <div  class="table-responsive">
+                    <table  id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+                      <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Produit</th>
+                        <th class="text-center">Vendeur</th>
+                        <th class="text-center">Quantite</th>
+                        <th class="text-center">Prix unitaire</th>
+                        <th  class="text-center">Sous Total</th>
+                        
+                      </tr>
+                      <tr *ngFor="let item of cart.details; let id = index ;">
+                       
+                        <td>
+                          <span >{{id+1}}</span>
+                        </td>
+                        <td>
+                          <span >{{item.product.designation }}</span>
+                        </td>
+                        <td>
+                          <span >{{item.seller.firstname }}</span>
+                        </td>
+                        <td>
+                            <span >{{item.quantity }}</span>
+                          </td>
+                        
+                        <td>
+                            <span >{{item.approvedPrice}} DT</span>
+                          </td>
+                            <td>
+                              <span>{{item.approvedPrice * item.quantity }} DT</span> 
+                            </td>
+                            
+                       </tr>
+                       <tr>
+                         
+                          <td colspan="7" class="text-right">
+                              <button (click)="validate()" type="button" class="btn btn-primary btn-rounded waves-effect waves-light">Valider
+                                 
+                              </button>
+                            </td>
+                       
+                      </tr>
+                    </table>
+                    
+    
+                  </div>
+                 
+    
+                </div>
+    
+              </div>
+    
+            </div>
+            <!--Grid column-->
+    
+          </div>
+        </div>
+        <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-warning" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Produits Indisponible</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p>Les produits {{product}} ne sont plus disponible avec la quantite souhaitee </p>
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a routerLink="/cart" type="button" mdbBtn color="warning" class="waves-effect" mdbWavesEffect>Aller vers Panier
+          <mdb-icon fas icon="shopping-cart"></mdb-icon>
+        </a>
+       
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

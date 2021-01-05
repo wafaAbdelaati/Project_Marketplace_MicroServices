@@ -1,0 +1,58 @@
+version: '3'
+services:
+  categoryDB:
+    container_name: categoryDB
+    image: mongo
+    restart: always
+    ports:
+      - 32700:27017
+    networks:
+      mysubnet:
+        aliases:
+        - marketplace.categorydb
+  featureDB:
+    container_name: featureDB
+    image: mongo
+    restart: always
+    ports:
+      - 32701:27017
+    networks:
+      mysubnet:
+        aliases:
+        - marketplace.featuredb
+  productDB:
+    container_name: productDB
+    image: mongo
+    restart: always
+    ports:
+      - 32702:27017
+    networks:
+      mysubnet:
+        aliases:
+        - marketplace.productdb
+  userDB:
+    container_name: userDB
+    image: mongo
+    restart: always
+    ports:
+      - 32703:27017
+    networks:
+      mysubnet:
+        aliases:
+        - marketplace.userdb
+  orderDB:
+    container_name: orderDB
+    image: mongo
+    restart: always
+    ports:
+      - 32704:27017
+    networks:
+      mysubnet:
+        aliases:
+        - marketplace.orderdb
+networks:
+  mysubnet:
+    external: true
+
+
+

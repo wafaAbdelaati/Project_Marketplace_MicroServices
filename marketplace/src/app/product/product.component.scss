@@ -1,0 +1,41 @@
+.container{
+    margin-top: 5%;
+    min-height: 425px;
+}
+.card{
+    width: 100%;
+}
+.feature{
+    width: 25%;
+}
+.img-fluid{
+    width: 100%!important;
+    height: 50vh !important;
+    object-fit: fill!important;
+}
+.features{
+    margin-top: 1rem;
+}
+.icone{
+    font-size: 5em;
+    color:#ffe358;
+}
+.list-group-item-action.active {
+    background-color: gainsboro;
+    border-color: gainsboro;
+ 
+  
+}
+.nav-item.active{
+
+    font-style: italic;
+    font-weight: bold;
+}
+.star {
+    font-size: 1.5rem;
+    color: #f0e4a8;
+  }
+  .filled {
+    color: #ffe358;
+  }
+  

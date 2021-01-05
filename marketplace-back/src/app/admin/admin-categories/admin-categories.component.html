@@ -1,0 +1,203 @@
+<h3 class="mb-4 h3-responsive ">La liste des categories</h3>
+<div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="updateSuccess=false">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    La categorie {{selectedCategory.name}} a été mise à jour avec succès;
+  </div>
+<span class="table-add float-right mb-3 mr-2">
+    <a routerLink="../newCategory" class="text-success" style="color: #00bd9d!important;">
+        <mdb-icon fas icon="plus-circle" size="2x"></mdb-icon>
+    </a>
+  </span>
+<table id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center">#</th>
+    <th class="text-center"> Categorie <mdb-icon far icon="edit"></mdb-icon> </th>
+    <th class="text-center">Menu</th>
+    <th class="text-center">Action</th>
+  </tr>
+  <tr *ngFor="let category of categories; let id = index ;">
+    <td>
+      <span  contenteditable="true">{{id+1}}</span>
+    </td>
+    <td>
+      <span contenteditable="true" (blur)="changeCategoryValue(id, $event)" >{{category.name }}</span>
+    </td>
+    <td>
+      <span *ngIf="category.inHome">oui</span>
+      <span *ngIf="!category.inHome">Non</span>
+    </td>
+  
+ 
+    <td>
+      <span class="table-remove">
+        <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0" data-toggle="modal" data-target="#exampleModal"  (click)="show(category.id)" mdbWavesEffect ><mdb-icon fas icon="list"></mdb-icon></button>
+        <button *ngIf="!category.inHome" type="button"  mdbBtn  rounded="true" size="sm" class="my-0 btn-custom"   (click)="selectedCategory=category;menuFrame.show()" mdbWavesEffect ><mdb-icon far icon="plus-square"></mdb-icon> menu</button>
+        <button *ngIf="category.inHome" type="button"  mdbBtn  rounded="true" size="sm" class="my-0 btn-custom"   (click)="selectedCategory=category;menuFrameD.show()" mdbWavesEffect ><mdb-icon far icon="trash-alt"></mdb-icon> menu</button>
+        <button  type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="selectedCategory=category;confirmDelete.show();" mdbWavesEffect ><mdb-icon far icon="trash-alt"></mdb-icon></button>
+      </span>
+</td>
+   </tr>
+</table>
+<!--Add To Menu Modal-->
+<div mdbModal #menuFrame="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Mise a jour du menu</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-check fa-4x animated rotateIn mb-4"></i>
+        <p>Voulez-vous Ajouter la categorie {{selectedCategory.name}} au menu ?</p>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="AddToMenu(selectedCategory.id,true);menuFrame.hide()" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="primary" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal" (click)="menuFrame.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
+<!--Add To Menu Modal-->
+<!--Remove from Menu Modal-->
+<div mdbModal #menuFrameD="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Mise a jour du menu</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-4x animated rotateIn mb-4"></i>
+        <p>Voulez-vous enlever la categorie {{selectedCategory.name}} du menu ?</p>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="AddToMenu(selectedCategory.id,false);menuFrameD.hide()" mdbBtn color="danger" class="waves-light" mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal" (click)="menuFrameD.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Remove from Menu Modal-->
+<!--confirm delete Modal-->
+<div mdbModal #confirmDelete="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Voulez- vous supprimer la categorie {{selectedCategory.name}}  ?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="deleteCategory(selectedCategory.id);confirmDelete.hide()" mdbBtn color="danger" outline="true" class="waves-effect"
+          mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="confirmDelete.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--confirm delete Modal-->
+<!-- Detail Modal-->
+<div mdbModal #content="mdbModal" class="modal  fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" (closed)="onClosed($event)">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">Liste des sous categorie - {{selectedCategory.name}} </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="content.hide()">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+
+  <!-- Default inline form -->
+              <table *ngIf="selectedCategory !== undefined && selectedCategory !== null" id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nom <mdb-icon far icon="edit"></mdb-icon></th>
+                    <th   class="text-center">Action</th>
+                  </tr>
+                  <tr *ngFor="let subCategory of selectedCategory.subCategories; let id = index ;">
+                   
+                    <td>
+                      <span >{{id+1}}</span>
+                    </td>
+                    <td>
+                      <span contenteditable="true" (keyup)="changeValue(id, $event)">{{subCategory.name }}</span>
+                    </td>
+                
+                    <td >
+                      <span class="table-remove">
+                        <button  type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0" (click)="updateSubCategory(subCategory)" mdbWavesEffect ><mdb-icon far icon="edit"></mdb-icon></button>
+                        <button  type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="deleteSubCategory(subCategory.id)" mdbWavesEffect ><mdb-icon far icon="trash-alt"></mdb-icon></button>
+                      
+                      </span>
+                    </td>
+        
+                   </tr>
+                   <tr *ngIf="addSubCategory">
+                   
+                      <td>
+                        <span >#</span>
+                      </td>
+                      <td>
+                          <div class="md-form" style="margin: 0;">
+                              <input mdbInput type="text" id="form1" class="form-control" [(ngModel)]="newSubCategory.name">
+                              <label for="form1" class="">Nouvelle Sous Categorie</label>
+                            </div>
+                       <!--  <span contenteditable="true" ></span> -->
+                      </td>
+                  
+                      <td >
+                        <span class="table-remove">
+                            <button  type="button" mdbBtn  rounded="true" size="sm" class="my-0 btn-custom" (click)="addNewSubCategory()" mdbWavesEffect >
+                                <mdb-icon fas icon="check"></mdb-icon></button>
+                            <button  type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="addSubCategory=false" mdbWavesEffect >
+                              <mdb-icon fas icon="times"></mdb-icon></button>
+                          
+                        </span>
+                      </td>
+          
+                     </tr>
+                    
+                </table>
+                <span class="table-add float-right mb-3 mr-2">
+                    <a class="text-success" *ngIf="!addSubCategory" (click)="addSubCategory=true" style="color: #00bd9d!important;">
+                        <mdb-icon far icon="plus-square" size="2x"></mdb-icon>
+                    </a>
+                  </span>
+               
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary waves-light" data-dismiss="modal" (click)="content.hide()" mdbWavesEffect>Fermer</button>
+              
+          </div>
+      </div>
+
+  </div>
+</div>
+<!-- Detail Modal-->

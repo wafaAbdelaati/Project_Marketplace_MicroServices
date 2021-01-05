@@ -1,0 +1,78 @@
+
+
+    
+<div class="container right-side">
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-2" style="padding-left:0;">
+  
+          <div class="list-group" id="list-tab" role="tablist">
+              <b>
+                  <a routerLink="/account"  class="list-group-item list-group-item-action "> Mon Compte </a>
+                  <a routerLink="/account/settings" class="list-group-item list-group-item-action"  >Informations personnelle</a>
+                  <a routerLink="/account/address" class="list-group-item list-group-item-action active" >Mes adresses</a>
+                  <a routerLink="/account/orders" class="list-group-item list-group-item-action" >Mes commandes</a>
+                  <a  routerLink="/account/reviews" class="list-group-item list-group-item-action" >Mes avis</a>
+              </b>
+              </div>
+    </div>
+    <div class="col-md-10" style="margin-top:3%;">
+      <div class="container">
+              <div class="tab-content" id="nav-tabContent">
+                      <div class="tab-pane fade show active">
+                              <h4>Mes adresses </h4>
+                              <div class="row">
+                                <div class="col-sm-6 mb-3 mb-md-0">
+                                  <mdb-card>
+                                      <mdb-card-header>Mon adresse principle</mdb-card-header>
+                                    <mdb-card-body>
+                                        <div class="md-form">
+                                          
+                                            <input   mdbInput type="text" id="form1" class="form-control" [(ngModel)]="address">
+                                           
+                                          </div>
+                                      <mdb-card-text>
+                                    </mdb-card-text>
+                                      <a (click)="update(1)" mdbBtn color="primary">Modifier</a>
+                                    </mdb-card-body>
+                                  </mdb-card>
+                                </div>
+                                <div class="col-sm-6">
+                                  <mdb-card>
+                                      <mdb-card-header>Mon adresse de livraison</mdb-card-header>
+                                    <mdb-card-body>
+                                      <mdb-card-text>
+                                          <div class="md-form">
+                                          
+                                              <input   mdbInput type="text" id="form1" class="form-control" [(ngModel)]="deliveryAddress" >
+                                             
+                                            </div>
+                                      </mdb-card-text>
+                                      <a (click)="update(2)" mdbBtn color="primary">Modifier</a>
+                                    </mdb-card-body>
+                                  </mdb-card>
+                                </div>
+                              </div>
+                            
+                      </div>
+                 
+                   </div>
+    
+      </div></div>
+    <!-- Grid column -->
+  
+    <!-- Grid column -->
+  
+
+  
+  </div>
+</div>
+  <!-- Grid row -->         
+     
+      
+      
+      
+      
+      
+      

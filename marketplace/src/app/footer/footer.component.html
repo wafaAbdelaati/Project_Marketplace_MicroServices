@@ -1,0 +1,81 @@
+    <!-- Footer -->
+    <footer class="page-footer font-small unique-color pt-4">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+    
+          <!-- Grid row -->
+          <div class="row">
+    
+            <!-- Grid column -->
+            <div class="col-md-2 mt-md-0 mt-3">
+              <!--Image-->
+              <img src="assets/logo1.png" height="100" class="d-inline-block align-top" alt="">
+    
+            </div>
+            <!-- Grid column -->
+    
+            <hr class="clearfix w-100 d-md-none pb-3">
+    
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+    
+                <!-- Links -->
+                <h5 class="text-uppercase">Liens</h5>
+    
+                <ul class="list-unstyled">
+                  <li>
+                    <a routerLink="signup">Inscription</a>
+                  </li>
+                  <li>
+                    <a routerLink="account">Espace client</a>
+                  </li>
+                  <li>
+                    <a href="{{url}}">Espace vendeur</a>
+                  </li>
+                
+                </ul>
+    
+              </div>
+              <div class="col-md-3 mb-md-0 mb-3">
+    
+                  <!-- Links -->
+                  <h5 class="text-uppercase">Meilleurs Categories</h5>
+      
+                  <ul *ngIf="categories!=undefined" class="list-unstyled">
+                    <li *ngFor="let category of categories">
+                      <a routerLink="/category/C/{{category.id}}" >{{category.name}}</a>
+                    </li>
+                   
+                  </ul>
+      
+                </div>
+           
+              <div class="col-md-3 mb-md-0 mb-3">
+    
+                <!-- Links -->
+                <h5 class="text-uppercase">Meilleurs Produits</h5>
+    
+                <ul *ngIf="products!=undefined" class="list-unstyled">
+                  <li *ngFor="let product of products">
+                    <a routerLink="/product/{{product.id}}" >{{product.designation}}</a>
+                  </li>
+                  
+                </ul>
+    
+              </div>
+              <!-- Grid column -->
+    
+          </div>
+          <!-- Grid row -->
+    
+        </div>
+        <!-- Footer Links -->
+    
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+          <a href="http://five-consulting.com/"> Five Consulting</a>
+        </div>
+        <!-- Copyright -->
+    
+      </footer>

@@ -1,0 +1,66 @@
+<div class="row mb-5">
+  <div *ngIf="chartLabels.length!=0" class="col-6">
+    <h3>Commande par Etat</h3>
+      <div  style="display: block">
+          <canvas mdbChart
+              [chartType]="chartType"
+              [datasets]="chartDatasets"
+              [labels]="chartLabels"
+              [colors]="chartColors"
+              [options]="chartOptions"
+              [legend]="false"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+  </div>
+  <div *ngIf="chartLabels2.length!=0" class="col-6">
+      <h3>Montant par commande</h3>
+        <div  style="display: block">
+            <canvas mdbChart
+                [chartType]="chartType"
+                [datasets]="chartDatasets2"
+                [labels]="chartLabels2"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="false"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+    </div>
+ 
+</div>
+<div class="row mb-3">
+  <div *ngIf="chartLabels3.length!=0" class="col-6">
+    <h3>Moyenne Avis par Produit</h3>
+      <div  style="display: block">
+          <canvas mdbChart
+              [chartType]="'horizontalBar'"
+              [datasets]="chartDatasets3"
+              [labels]="chartLabels3"
+              [colors]="chartColors"
+              [options]="chartOptions"
+              [legend]="false"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+  </div>
+  <div *ngIf="chartLabels4.length!=0" class="col-6">
+    <h3>Nombre Avis par Produit</h3>
+      <div  style="display: block">
+          <canvas mdbChart
+              [chartType]="'horizontalBar'"
+              [datasets]="chartDatasets4"
+              [labels]="chartLabels4"
+              [colors]="chartColors"
+              [options]="chartOptions"
+              [legend]="false"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+  </div>
+ 
+</div>

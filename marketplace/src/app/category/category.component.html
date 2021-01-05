@@ -1,0 +1,106 @@
+
+<div class="container right-side">
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-2" style="padding-left:0;">
+       
+      <nav *ngIf="category!==null && category.subCategories.length!=0" class="nav flex-column  blue-grey lighten-5  py-4 mb-r font-weight-bold z-depth-1">
+         <a   class="right-title" (click)="sub.toggle()">Sous categories 
+            <mdb-icon class="icone" *ngIf="sub !== undefined && !sub.isCollapsed" fas icon="angle-up"></mdb-icon>
+           <mdb-icon class="icone" *ngIf="sub !== undefined && sub.isCollapsed" fas icon="angle-down"></mdb-icon>
+          </a>
+         
+          <div mdbCollapse [isCollapsed]="true" #sub="bs-collapse" *ngIf="category!==null" class="list-group">
+            
+              <a routerLink="/category/S/{{subCategory.id}}"   *ngFor="let subCategory of category.subCategories" 
+              class="list-group-item waves-light" mdbWavesEffect>{{subCategory.name| lowercase }}</a>
+    
+            </div>
+       </nav>
+  
+    </div>
+    <div class="col-md-10" style="margin-top:3%;">
+      <div class="container">
+         <center><div *ngIf="category===null" class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div></center>
+            <div class="row">
+                <div class="col-md-9" >
+        <h3 *ngIf="category!==null && subCategory==null">{{category.name | uppercase}} </h3>
+        <h3 *ngIf="category!==null && subCategory!=null">{{category.name| uppercase}} : {{subCategory.name| lowercase}}</h3>
+      </div>
+      <div *ngIf="productPage!==undefined && productPage.empty===false" class="col-md-3" >
+          <span>Trier par</span>
+        <select name="sort" [(ngModel)]="sort"  class="browser-default custom-select" (change)="sortChange()">
+          
+            <option value="0" >Prix croissant</option>
+            <option value="1">Prix décroissant</option>
+            <option value="2">Nom, A à Z</option>
+            <option value="3">Nom, Z à A</option>
+          </select>
+          </div>
+        
+      </div>
+      <br>
+        <div class="row">
+         
+            <div class="productCard col-md-4" *ngFor="let product of products">
+              <mdb-card>
+                <!--Card image-->
+                <img  *ngIf="product.images[0]==null" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="...">
+                <img   *ngIf="product.images[0]!=null" src="{{product.images[0].path}}"  class="card-img-top" alt="...">
+                <!--Card content-->
+                <mdb-card-body>
+              
+                  <!--Title-->
+                  <mdb-card-title>
+                    <h4>{{product.designation}}</h4>
+                    <h5 class="indigo-text">
+                        <strong>{{product.price}} DT</strong>
+                      </h5>
+                  </mdb-card-title>
+              
+              
+                  <a routerLink="/product/{{product.id}}" class="stretched-link">Plus de details</a>
+                </mdb-card-body>
+              </mdb-card></div>
+             
+          </div>
+          <div *ngIf="productPage!==undefined && productPage.empty===true" class="row">
+              <h4 *ngIf="category!==null && subCategory==null">La categorie {{category.name}} n'admet pas des produits </h4>
+              <h4 *ngIf="subCategory!=null">La sous categorie {{subCategory.name}} n'admet pas des produits </h4>
+              </div>
+          <div *ngIf="productPage!==undefined && productPage.empty===false" class="row">
+            <nav class='paginationnav' aria-label="Page navigation example">
+              <ul class="pagination pg-blue justify-content-end">
+                <li *ngIf="productPage.first===true" class="page-item disabled">
+                    
+                  <a class="page-link" tabindex="-1" mdbWavesEffect>Précédent</a>
+                </li>
+                <li *ngIf="productPage.first===false" class="page-item ">
+                    
+                    <a (click)="change(productPage.number-1)" class="page-link" tabindex="-1" mdbWavesEffect>Précédent</a>
+                  </li>
+                  <li *ngIf="productPage.first===false" class="page-item "><a (click)="change(productPage.number-1,sortTable[sort].sort,sortTable[sort].dir)" class="page-link" mdbWavesEffect>{{productPage.number}}</a></li>
+                <li class="page-item active"><a  class="page-link" mdbWavesEffect>{{productPage.number+1}}</a></li>
+                <li  *ngIf="productPage.last===false"  class="page-item"><a (click)="change(productPage.number+1,sortTable[sort].sort,sortTable[sort].dir)"  class="page-link" mdbWavesEffect>{{productPage.number+2}}</a></li>
+                <li *ngIf="productPage.last===false" class="page-item">
+                  <a (click)="change(productPage.number+1)" class="page-link" mdbWavesEffect>Suivant</a>
+                </li>
+                <li *ngIf="productPage.last===true" class="page-item disabled">
+                    <a class="page-link" mdbWavesEffect>Suivant</a>
+                  </li>
+              </ul>
+            </nav>
+            </div>
+      </div></div>
+    <!-- Grid column -->
+  
+    <!-- Grid column -->
+  
+
+  
+  </div>
+</div>
+  <!-- Grid row -->

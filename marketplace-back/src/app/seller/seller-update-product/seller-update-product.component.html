@@ -1,0 +1,161 @@
+<h3 class="mb-4 h3-responsive text-info ">Modification du produit <strong>{{product.designation}}</strong></h3>
+<div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="updateSuccess=false">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    Le produit   {{product.designation}} a été mise à jour avec succès;
+  </div>
+<div id="accordion">
+  <div class="card">
+    <div  (click)="(collapse==1)?collapse=0:collapse=1" class="card-header" id="headingOne">
+      <h5>
+        Informations
+      </h5>
+    </div>
+
+    <div  id="collapseOne" class="collapse" [class.show]="collapse===1" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+          <div class="row justify-content-center">
+              <!-- Grid column -->
+              <div class="col">
+                <!-- Material input -->
+                <div class="md-form mt-0">
+                        <input [(ngModel)]="product.designation" name="designation" mdbInput type="text" id="designation" class="form-control">
+                        <label for="designation" class="">Designation</label>
+                </div>
+              </div>
+              <!-- Grid column -->
+               <!-- Grid column -->
+               <div class="col">
+                  <!-- Material input -->
+                  <div class="md-form mt-0">
+                      <input [(ngModel)]="product.quantity" name="quantity" mdbInput type="number" id="quantity" class="form-control" min="1">
+                      <label for="quantity" class="">Quantite</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+            
+            </div>
+          <div class="row justify-content-center">
+              <!-- Grid column -->
+              <div class="col">
+                <!-- Material input -->
+                <div class="md-form mt-0">
+                    <textarea [(ngModel)]="product.description" name="description"  rows="1" type="text" id="description" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+                    <label for="description">Description</label>
+                </div>
+              </div>
+              <!-- Grid column -->
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button (click)="saveProduct()"  type="button" class="btn btn-primary btn-md mt-0">Valider</button>
+                  </div>
+              </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div (click)="(collapse==2)?collapse=0:collapse=2" class="card-header" id="headingTwo">
+      <h5>
+        Caracterstiques
+      </h5>
+    </div>
+    <div [class.show]="collapse==2" id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+          <div class="row" *ngFor="let feature of product.features">
+              <!-- Grid column -->
+              <div class="col-5">
+                <!-- Material input -->
+                <div class="md-form mt-0">
+                    <input [(ngModel)]="feature.name" [ngModelOptions]="{standalone: true}" mdbInput type="text" id="name" class="form-control">
+                    <label for="name" class="">Nom</label>
+                </div>
+              </div>
+              <!-- Grid column -->
+              <!-- Grid column -->
+              <div class="col-5">
+                <!-- Material input -->
+                <div class="md-form mt-0">
+                    <input [(ngModel)]="feature.value" [ngModelOptions]="{standalone: true}" mdbInput type="text" id="value" class="form-control">
+                    <label for="value" class="">Valeur</label>
+                </div>
+              </div>
+              <!-- Grid column -->
+              <div class="col-2">
+                  <!-- Material input -->
+                  <button (click)="saveFeature(feature)" type="button" class="btn btn-primary btn-md mt-0"><mdb-icon fas icon="check"></mdb-icon></button>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <div class="row" >
+              
+                <!-- Grid column -->
+                <div class="col">
+                    <!-- Material input -->
+                    <button (click)="addFeature()"  type="button" class="btn btn-custom btn-md mt-0"><mdb-icon fas icon="plus"></mdb-icon></button>
+                  </div>
+                  <!-- Grid column -->
+              </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div (click)="(collapse==3)?collapse=0:collapse=3"  class="card-header" id="headingThree">
+      <h5>
+        Prix
+      </h5>
+    </div>
+    <div id="collapseThree" [class.show]="collapse==3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+          <div class="row justify-content-center">
+              <!-- Grid column -->
+              <div class="col-6">
+                <!-- Material input -->
+                <div class="md-form mt-0">
+                        <input [(ngModel)]="product.price" name="price" mdbInput type="text" id="price" class="form-control">
+                        <label for="price" class="">Prix</label>
+                </div>
+              </div>
+              <!-- Grid column -->
+               <!-- Grid column -->
+               <div class="col-6">
+                  <button (click)="savePrice()"  type="button" class="btn btn-primary btn-md mt-0">Valider</button>
+                  
+                </div>
+                <!-- Grid column -->
+            
+            </div>
+            <div *ngIf="chart" class="row justify-content-center">
+                <!-- Grid column -->
+                <div class="col-9">
+                    <div style="display: block">
+                        <canvas mdbChart
+                            [chartType]="chartType"
+                            [datasets]="chartDatasets"
+                            [labels]="chartLabels"
+                            [colors]="chartColors"
+                            [options]="chartOptions"
+                            [legend]="true"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                        </canvas>
+                      </div>
+                </div>
+                <!-- Grid column -->
+         
+              
+              </div>
+         
+         
+         
+         
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-5 justify-content-center">
+    <div class="col">
+        <button routerLink="/seller/products"  type="button" class="btn btn-custom btn-md mt-0">Terminer</button>
+      </div>
+  </div>

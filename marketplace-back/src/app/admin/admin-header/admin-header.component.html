@@ -1,0 +1,44 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark stylish-color" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand>
+        <a class="navbar-brand"routerLink="/admin">
+            <img src="assets/logo1.png" height="30" class="d-inline-block align-top" alt="">
+            Marketplace - Espace Admin
+        </a>
+      </mdb-navbar-brand>
+  
+    <!-- Collapsible content -->
+    <links>
+  
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+   
+         <!-- Dropdown -->
+         <li *ngIf="role==='super-admin'" class="nav-item dropdown" dropdown>
+            <a  dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+              <mdb-icon fas icon="cog"></mdb-icon> Paramètres<span class="caret"></span></a>
+            <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+              <a routerLink="settings" class="dropdown-item waves-light" mdbWavesEffect>Accueil</a>
+              <a  routerLink="users"  class="dropdown-item waves-light" mdbWavesEffect>Utilisateurs</a>
+            </div>
+          </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown" dropdown>
+            <a  dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+              <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span></a>
+            <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+              <a class="dropdown-item waves-light" mdbWavesEffect routerLink="account">Mon Compte</a>
+              <a (click)="logout()" class="dropdown-item waves-light" mdbWavesEffect>Déconnexion</a>
+            </div>
+          </li>
+       
+  
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  
+  </mdb-navbar>
+  <!--/.Navbar-->

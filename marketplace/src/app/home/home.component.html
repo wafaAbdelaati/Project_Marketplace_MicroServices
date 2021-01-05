@@ -1,0 +1,36 @@
+
+  <div class="container">
+    
+      <div class="row">
+    
+        <div class="col-md-3 col-sm-6" style="margin-bottom: 20px;" *ngFor="let product of products"><mdb-card>
+            <!--Card image-->
+            <img  *ngIf="product.images[0]==null" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="...">
+            <img   *ngIf="product.images[0]!=null" src="{{product.images[0].path}}"  class="card-img-top" alt="...">
+            <!-- <mdb-card-img class="image" *ngIf="product.images[0]==null" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" alt="Card image cap"></mdb-card-img>
+            <mdb-card-img class="image" *ngIf="product.images[0]!=null" src="assets/products/{{product.images[0].path}}" alt="Card image cap"></mdb-card-img>
+            -->
+            <!--Card content-->
+            <mdb-card-body>
+          
+              <!--Title-->
+              <mdb-card-title>
+                <h4>{{product.designation}}</h4>
+                <h5 class="indigo-text">
+                    <strong>{{product.price}} DT</strong>
+                  </h5>
+              </mdb-card-title>
+          
+          
+              <a routerLink="/product/{{product.id}}" class="stretched-link">Plus de details</a>
+            </mdb-card-body>
+          </mdb-card></div>
+     
+      </div>
+    
+      
+    
+      
+    </div>
+
+  <!-- Footer -->

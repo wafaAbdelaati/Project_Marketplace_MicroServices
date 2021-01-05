@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="row">
+  
+   <div class="col-md-5">
+       <mdb-carousel *ngIf="product.images !=undefined && product.images.length > 1" class="carousel slide carousel-fade" [animation]="'fade'">
+           <mdb-carousel-item *ngFor="let image of product.images">
+             <img class="img-fluid  d-block w-100" src="{{image.path}}" alt="First slide">
+           </mdb-carousel-item>
+         
+         </mdb-carousel>
+         <div *ngIf="product.images !=undefined && product.images.length ===1" class="view overlay zoom">
+             <img   src="{{product.images[0].path}}" class="img-fluid " alt="zoom">
+             
+              <div class="mask flex-center waves-effect waves-light">
+                <p class="white-text">Zoom </p>
+              </div>
+            </div>
+       <div *ngIf="product.images !=undefined && product.images[0]==null" class="view overlay zoom">
+          <img   src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="img-fluid " alt="zoom">
+          
+           <div class="mask flex-center waves-effect waves-light">
+             <p class="white-text">Zoom </p>
+           </div>
+         </div>
+   </div>
+ 
+   <div *ngIf="product != null" class="col-md-7">
+       <div class="row">
+           <div class="col-md-8"><h3 class="text-info">{{product.designation}}    
+             <a routerLink="/seller/updateProduct/{{product.id}}" class="text-info">
+            <mdb-icon  far icon="edit"></mdb-icon>
+        </a></h3>   
+       </div>
+           <div class="col-md-4"><h3 class="text-right text-info font-weight-bolder" >{{product.price}} DT</h3></div>
+         </div>
+         <br>
+         <div class="row">
+             <p class="font-weight-bold">Description</p>
+           </div>
+           <div class="row">
+              <p class="text-break">{{product.description}}</p>
+            </div>
+           <div class="text-center" *ngIf="product.reviews !=undefined && product.reviews.length !== 0" >
+            <div class="review " *ngFor="let item of [].constructor(5);let id=index;">
+              <mdb-icon  *ngIf="id < product.review" fas icon="star" size="2x"  class="amber-text "></mdb-icon>
+              <mdb-icon *ngIf="id >= product.review" far icon="star"  size="2x"  class="amber-text "></mdb-icon>
+            </div> </div>
+            <br>
+            <div class="row">
+              <p class="font-weight-bold">Caracteristiques</p>
+            </div>
+           <div class="row">
+            <table *ngIf="product != null" mdbTable class="features" >
+                     
+              <tr mdbTableCol *ngFor="let feature of product.features">
+                <td class="feature">{{feature.name}}</td>
+                <td>{{feature.value}}</td>
+      
+              </tr>
+          
+          </table>
+         
+ 
+ 
+   </div>
+  </div>
+ 
+     </div>
+     <div *ngIf="product != null" class=" mt-4">
+         <nav>
+             <div class="nav nav-tabs" id="nav-tab" role="tablist">
+               <a  class="nav-item nav-link active"  role="tab"  aria-selected="true">Avis des clients</a>
+             </div>
+           </nav>
+           <div class="tab-content" id="nav-tabContent">
+                   <div *ngIf="product.reviews !=undefined && product.reviews.length !== 0" class="row" style="margin: 1%;">
+                  
+                      <div class="col-md-12">
+                             <div *ngFor="let review of product.reviews" class="media d-block d-md-flex mt-3">
+                              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                                 <h5 class="font-weight-bold mt-0">
+                                   <a>{{review.customer.firstname}} {{review.customer.lastname}}</a>
+                                   <a  class="pull-right">
+                                  <mdb-icon  *ngFor="let item of [].constructor(review.note);" fas icon="star"  class="amber-text "></mdb-icon>
+                                <mdb-icon *ngFor="let item of [].constructor(5-review.note);" far icon="star"  class="amber-text "></mdb-icon>
+                                   </a>
+                                 </h5>
+                                <p> {{review.reviewDate | date:'fullDate'}} </p>
+                                <p> {{review.comment}} </p>
+                                
+                               </div>
+                             </div>
+                            
+                       
+                    </div>
+               
+             </div>
+              
+               
+             </div>
+    
+         </div>
+         <div *ngIf="product.priceHistory !=undefined && product.priceHistory.length !== 0" class=" mt-4">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a  class="nav-item nav-link active"  role="tab"  aria-selected="true">Suivie du prix</a>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                      <div  class="row" style="margin: 1%;">
+                     
+                         <div class="col-md-12">
+                            <div style="display: block">
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [datasets]="chartDatasets"
+                                    [labels]="chartLabels"
+                                    [colors]="chartColors"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)">
+                                </canvas>
+                              </div>
+                               
+                          
+                       </div>
+                  
+                </div>
+                 
+                  
+                </div>
+       
+            </div>
+     </div>

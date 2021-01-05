@@ -1,0 +1,176 @@
+<div class="container">
+ <div class="row">
+ 
+  <div class="col-md-5">
+      <mdb-carousel *ngIf="product != null && product.images.length > 1" class="carousel slide carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item *ngFor="let image of product.images">
+            <img class="img-fluid  d-block w-100" src="{{image.path}}" alt="First slide">
+          </mdb-carousel-item>
+        
+        </mdb-carousel>
+        <div *ngIf="product != null && product.images.length ===1" class="view overlay zoom">
+            <img   src="{{product.images[0].path}}" class="img-fluid " alt="zoom">
+            
+             <div class="mask flex-center waves-effect waves-light">
+               <p class="white-text">Zoom </p>
+             </div>
+           </div>
+      <div *ngIf="product != null && product.images[0]==null" class="view overlay zoom">
+         <img   src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="img-fluid " alt="zoom">
+         
+          <div class="mask flex-center waves-effect waves-light">
+            <p class="white-text">Zoom </p>
+          </div>
+        </div>
+  </div>
+
+  <div *ngIf="product != null" class="col-md-7">
+      <div class="row">
+          <div class="col-md-6"><h3>{{product.designation}}</h3> </div>
+          <div class="col-md-6"><h3 class="text-right text-info font-weight-bolder" >{{product.price}} DT</h3></div>
+        </div>
+        <br><br><br>
+        <div class="row">
+            <p class="text-break">{{product.description}}</p>
+          </div>
+          <div class="row">
+              <mdb-card  >
+                  <mdb-card-body class="mx-auto">
+                      <form class="form-inline ">
+                          <div class="md-form input-group mb-3" style="width:16%;">
+                         
+                            <input mdbInput type="number" id="form1" class="form-control" [(ngModel)]="quantity" name="quantity" min="0"  max="{{product.quantity}}">
+                          </div>
+                      <button (click)="addToCart()" mdbBtn type="submit" color="primary"outline="true" class="ml-2" > <mdb-icon fas icon="shopping-cart"></mdb-icon> Ajouter au panier</button>
+                     
+                      <div mdbModal #basicModal="mdbModal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                              <h4 class="modal-title w-100" id="myModalLabel">Ajouté au panier !</h4>
+                            </div>
+                            <div class="modal-body">
+                             {{product.designation }} a été ajouté à votre panier.
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Poursuivre  vos achats</button>
+                              <button routerLink="/cart" type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Consulter votre panier</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>   
+                    </form>
+                  </mdb-card-body>
+                </mdb-card>
+            
+        
+
+
+  </div>
+ </div>
+
+    </div>
+    <div *ngIf="product != null" class=" mt-4">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a (click)="change(0)" class="nav-item nav-link" [class.active]="activeTab===0"   role="tab"  aria-selected="true">Avis</a>
+              <a (click)="change(1)" class="nav-item nav-link" [class.active]="activeTab===1"  role="tab"  aria-selected="false">Caractersitiques</a>
+             </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show " [class.active]="activeTab===0"  >
+                  <div mdbModal #reviewModal="mdbModal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myreviewModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="reviewModal.hide()">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title w-100" id="myModalLabel">Évaluer ce produit</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Note:</p>
+                              <ngb-rating [(rate)]="newReview.note">
+                                  <ng-template let-fill="fill" let-index="index">
+                                    <span class="star" [class.filled]="fill === 100" >&#9733;</span>
+                                  </ng-template>
+                                </ngb-rating>
+                                <p>Commentaire:</p>
+                                <input mdbInput type="text" id="form1" class="form-control" [(ngModel)]="newReview.comment" >        
+                             
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" mdbBtn color="red" class="waves-light" aria-label="Close" (click)="reviewModal.hide()" mdbWavesEffect>Annuler</button>
+                            <button (click)="addReview()" type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Evaluer</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div *ngIf="product.reviews.length === 0" class="row" style="margin: 1%;">
+                      <div class="col-md-6 mx-auto">
+                          
+                      <div class="row"><p class="font-weight-bold">Évaluer ce produit</p> </div>
+                      <div class="row"><p>Partagez votre opinion avec les autres clients</p></div>
+                      <div class="row">
+                        <button (click)="showReviewModal()" mdbBtn type="button" gradient="blue" rounded="true" class="mx-auto" style="width: 80%" mdbWavesEffect>Écrire un avis</button>
+                      </div>
+                      
+                      </div>
+                  </div>
+                  <div *ngIf="product.reviews.length !== 0" class="row" style="margin: 1%;">
+                    <div class="col-md-4">
+                        <div class="row"><p class="font-weight-bold">Moyenne des notes</p> </div>
+                        <div class="row" style="margin: 1%;">
+                      <p class="amber-text" style="font-size: 1.5em"><mdb-icon fas icon="star" size="3x" class="amber-text"></mdb-icon>{{product.review}} Etoiles</p>
+                    </div>
+                    <div class="row"><p class="font-weight-bold">Évaluer ce produit</p> </div>
+                    <div class="row"><p>Partagez votre opinion avec les autres clients</p></div>
+                    <div class="row">
+                      <button (click)="showReviewModal()" mdbBtn type="button" gradient="blue" rounded="true" class="mx-auto" style="width: 80%" mdbWavesEffect>Écrire un avis</button>
+                    </div>
+                    
+                    </div>
+                     <div class="col-md-8">
+                        <div class="row"><p class="font-weight-bold">Avis des clients</p> </div>
+                    
+                            <div *ngFor="let review of product.reviews" class="media d-block d-md-flex mt-3">
+                             <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                                <h5 class="font-weight-bold mt-0">
+                                  <a>{{review.customer.firstname}} {{review.customer.lastname}}</a>
+                                  <a  class="pull-right">
+                                 <mdb-icon  *ngFor="let item of [].constructor(review.note);" fas icon="star"  class="amber-text "></mdb-icon>
+                               <mdb-icon *ngFor="let item of [].constructor(5-review.note);" far icon="star"  class="amber-text "></mdb-icon>
+                                  </a>
+                                </h5>
+                               <p> {{review.reviewDate | date:'fullDate'}} </p>
+                               <p> {{review.comment}} </p>
+                               
+                              </div>
+                            </div>
+                           
+                      
+                   </div>
+              </div>
+            </div>
+              <div class="tab-pane fade show " [class.active]="activeTab===1"  >
+                  <div class="col-md-12">
+                      <table *ngIf="product != null" mdbTable class="features" >
+                    
+                            <tr mdbTableCol *ngFor="let feature of product.features">
+                              <td class="feature">{{feature.name}}</td>
+                              <td>{{feature.value}}</td>
+                    
+                            </tr>
+                        
+                        </table>
+                     </div>
+              </div>
+              
+            </div>
+   
+        </div>
+       
+    </div>

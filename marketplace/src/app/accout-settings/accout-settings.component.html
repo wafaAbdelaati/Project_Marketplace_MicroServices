@@ -1,0 +1,116 @@
+
+
+    
+<div class="container right-side">
+    <div class="row">
+  
+      <!-- Grid column -->
+      <div class="col-md-2" style="padding-left:0;">
+    
+            <div class="list-group" id="list-tab" role="tablist">
+              <b>
+                <a routerLink="/account"  class="list-group-item list-group-item-action "> Mon Compte </a>
+                <a routerLink="/account/settings" class="list-group-item list-group-item-action active"  >Informations personnelle</a>
+                <a routerLink="/account/address" class="list-group-item list-group-item-action" >Mes adresses</a>
+                <a routerLink="/account/orders"  class="list-group-item list-group-item-action" >Mes commandes</a>
+                    <a  routerLink="/account/reviews" class="list-group-item list-group-item-action" >Mes avis</a>
+                  </b>
+                </div>
+      </div>
+      <div class="col-md-10" style="margin-top:3%;">
+        <div class="container">
+                <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active">
+                                <h4>Informations personnelles </h4>
+                                 <form [formGroup]="settingFormGroup"  class="text-center border border-light p-5">
+
+                                    <div class="form-row mb-4">
+                                      <div class="col-md-6">
+                                          <div class="md-form">
+                                              <p>Prénom</p>
+                                              <input   mdbInput type="text" id="firstname" class="form-control"  formControlName="firstname">
+                                             
+                                            </div>
+                                          </div>
+                                      <div class="col-md-6">
+                                          <div class="md-form">
+                                              <p>Nom</p>
+                                              <input type="text" id="lastname" class="form-control" formControlName="lastname">
+                                             
+                                            </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                      <div class="col-md-6">
+                                          <div class="md-form">
+                                              <p>E-mail</p>
+                                              <input   mdbInput type="email" id="mail" class="form-control"  formControlName="mail" >
+                                             
+                                            </div>
+                                          </div>
+                                      <div class="col-md-6">
+                                          <div class="md-form">
+                                              <p>Téléphone mobile</p>
+                                              <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber">
+                                             
+                                            </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                      <div class="col-md-6">
+                                          <div class="md-form">
+                                              <p>Date de naissance</p>
+                                              <input type="Date" id="lastname" class="form-control" formControlName="birthDate">
+                                             
+                                             
+                                             
+                                            </div>
+                                          </div>
+                                      <div class="col-md-6">
+                                          <div class="md-form">
+                                              <p>Genre</p>
+                                              <select class="browser-default custom-select" formControlName="gender">
+                                                <option value="null" selected>Choisisez</option>
+                                                <option value="Femme">Femme</option>
+                                                <option value="Homme">Homme</option>
+                                              </select>
+                                            </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="md-form ">
+                                                <p>Mot de passe</p>
+                                                <input (change)="passwordUpdate=true"   mdbInput type="text"  class="form-control"  formControlName="password">
+                                               
+                                              </div>
+                                            </div>
+                                            
+                                      </div>
+                                    <!-- Sign up button -->
+                                    <button mdbBtn color="info" block="true" class="my-4" type="button" (click)="update()">Mettre a jour</button>
+                                
+                
+                                  </form> 
+                                
+                        </div>
+                   
+                     </div>
+      
+        </div></div>
+      <!-- Grid column -->
+    
+      <!-- Grid column -->
+    
+  
+    
+    </div>
+  </div>
+    <!-- Grid row -->         
+       
+        
+        
+        
+        
+        
+        

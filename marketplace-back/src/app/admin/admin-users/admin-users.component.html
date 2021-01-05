@@ -1,0 +1,205 @@
+
+
+<h3 class="mb-4 h3-responsive ">La liste des Utilisateurs</h3>
+<div *ngIf="addSuccess" class="alert alert-success" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="addSuccess=false">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    Un nouveau utilisateur a ete ajoute avec succees
+  </div>
+<span class="table-add float-right mb-3 mr-2">
+    <a data-toggle="modal" data-target="#basicExample"
+    (click)="form.show()" class="text-success" style="color: #00bd9d!important;">
+        <mdb-icon fas icon="plus-circle" size="2x"></mdb-icon>
+    </a>
+  </span>
+<div mdbModal #form="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Nouveau Utilisateur</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="form.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form [formGroup]="newUserFormGroup">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+          <input type="text" id="lastname" class="form-control validate" formControlName="lastname"
+            mdbInput>
+          <label data-error="wrong" data-success="right" for="lastname">Nom</label>
+          <div *ngIf="newUserFormGroup.controls['lastname'].invalid && (newUserFormGroup.controls['lastname'].dirty || newUserFormGroup.controls['lastname'].touched)">
+            <mdb-error *ngIf="newUserFormGroup.controls['lastname'].errors.required">Le nom est obligatoire </mdb-error>
+        </div>
+        </div>
+        <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input type="text" id="firstname" class="form-control validate" formControlName="firstname"
+              mdbInput>
+            <label data-error="wrong" data-success="right" for="firstname">Prenom</label>
+            <div *ngIf="newUserFormGroup.controls['firstname'].invalid && (newUserFormGroup.controls['firstname'].dirty || newUserFormGroup.controls['firstname'].touched)">
+              <mdb-error *ngIf="newUserFormGroup.controls['firstname'].errors.required">Le prenom est obligatoire </mdb-error>
+          </div>
+          </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="email" id="email" class="form-control validate" formControlName="mail"
+            mdbInput>
+          <label data-error="wrong" data-success="right" for="email">Email</label>
+          <div *ngIf="newUserFormGroup.controls['mail'].invalid && (newUserFormGroup.controls['mail'].dirty || newUserFormGroup.controls['mail'].touched)">
+            <mdb-error *ngIf="newUserFormGroup.controls['mail'].errors.required">L'email est obligatoire </mdb-error>
+            <mdb-error *ngIf="newUserFormGroup.controls['mail'].errors.email">Format Email invalide </mdb-error>
+        </div>
+        </div>
+
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="pass" class="form-control validate" formControlName="password"
+            mdbInput>
+          <label data-error="wrong" data-success="right" for="pass">Mot de passe</label>
+          <div *ngIf="newUserFormGroup.controls['password'].invalid && (newUserFormGroup.controls['password'].dirty || newUserFormGroup.controls['password'].touched)">
+            <mdb-error *ngIf="newUserFormGroup.controls['password'].errors.required">Le mot de passe est obligatoire </mdb-error>
+            <mdb-error *ngIf="newUserFormGroup.controls['password'].errors.minlength">Nombre de caracteres invalide (minimum 8 caracteres ) </mdb-error>
+        </div>
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button [class.disabled]="newUserFormGroup.invalid" (click)="addUser()" mdbBtn color="deep-orange" class="waves-light" mdbWavesEffect>Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<table id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center">#</th>
+    <th class="text-center"> Nom et Prenom  </th>
+    <th class="text-center">Email</th>
+    <th class="text-center">Numero de telephone</th>
+    <th class="text-center">Compte</th>
+    <th class="text-center">Action</th>
+  </tr>
+  <tr *ngFor="let admin of admins; let id = index ;">
+    <td>
+      <span>{{id+1}}</span>
+    </td>
+    <td>
+      <span>{{admin.firstname }} {{admin.lastname }}</span>
+    </td>
+    <td>
+        <span> {{admin.mail }}</span>
+      </td>
+      <td>
+          <span> {{admin.phoneNumber }}</span>
+        </td>
+    <td>
+       <span *ngIf="admin.isActive">Activé</span>
+      <span *ngIf="!admin.isActive">Désactivé</span> 
+    </td>
+  
+ 
+    <td>
+      <span class="table-remove">
+        <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0 btn-custom" data-toggle="modal" data-target="#basicExample"  (click)="show(admin)" mdbWavesEffect ><mdb-icon fas icon="list"></mdb-icon></button>
+        <button  type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="selectedadmin=admin;confirmDelete.show();" mdbWavesEffect ><mdb-icon far icon="trash-alt"></mdb-icon></button>
+      </span>
+</td>
+   </tr>
+</table>
+
+
+
+<div mdbModal #confirmDelete="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Voulez- vous supprimer l'utilisateur {{selectedadmin.firstname}} {{selectedadmin.lastname}} ?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="deleteUser(selectedadmin.id);confirmDelete.hide()" mdbBtn color="danger" outline="true" class="waves-effect"
+          mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="confirmDelete.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header btn-custom">
+        <p class="heading lead">{{selectedadmin.firstname}} {{selectedadmin.lastname}}</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+
+      <div class="modal-body mx-3 ">
+    
+      <div class="md-form mb-4 mt-0">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="text" id="defaultForm-email"  [(ngModel)]="selectedadmin.mail" [ngModelOptions]="{standalone: true}" 
+          class="form-control" disabled  mdbInput>
+          <label data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
+        </div>
+    
+
+  <div class="md-form mb-4 mt-0">
+      <mdb-icon fas icon="mobile-alt" class="grey-text"></mdb-icon>
+    <input type="text"  class="form-control"  [(ngModel)]="selectedadmin.phoneNumber" 
+    [ngModelOptions]="{standalone: true}" disabled  mdbInput>
+    <label data-error="wrong" data-success="right" for="defaultForm-pass">Numero de telephone</label>
+  </div>
+  <div class="md-form mb-4 mt-0">
+      <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon>
+ 
+    <input type="text"  class="form-control "  [(ngModel)]="selectedadmin.address" 
+    [ngModelOptions]="{standalone: true}" disabled  mdbInput>
+    <label data-error="wrong" data-success="right" for="defaultForm-pass">Addresse</label>
+  </div>
+  <div class="md-form mb-4 mt-0">
+      <mdb-icon far icon="address-card" class="grey-text"></mdb-icon>
+    <input *ngIf="selectedadmin.isActive" type="text"  class="form-control "  value="Activé" disabled  mdbInput>
+    <input *ngIf="!selectedadmin.isActive" type="text"  class="form-control "  value="Désactivé" disabled  mdbInput>
+    <label data-error="wrong" data-success="right" for="defaultForm-pass">Compte</label>
+  </div>
+ 
+ 
+           
+      
+          
+        
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="updateUser(false)"  *ngIf="selectedadmin.isActive" type="button" mdbBtn color="primary" class="waves-light btn-custom" mdbWavesEffect>Desactiver le compte
+            <mdb-icon fas icon="times"></mdb-icon>
+        </a>
+        <a (click)="updateUser(true)"  *ngIf="!selectedadmin.isActive" type="button" mdbBtn color="primary" class="waves-light btn-custom" mdbWavesEffect>Activer le compte
+            <mdb-icon fas icon="check"></mdb-icon>
+          </a>
+        <a type="button" mdbBtn color="primary" outline="true" class="custom waves-effect" mdbWavesEffect (click)="frame.hide()">Fermer</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

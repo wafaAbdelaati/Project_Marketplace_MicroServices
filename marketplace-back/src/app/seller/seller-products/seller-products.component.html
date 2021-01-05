@@ -1,0 +1,195 @@
+
+<h3 class="mb-4 h3-responsive ">Liste des produits </h3>
+<span class="table-add float-right mb-3 mr-2">
+    <a data-toggle="modal" data-target="#basicExample" (click)="frame.show()" class="text-success mr-3" style="color: #00bd9d!important;">
+      <mdb-icon fas icon="search" size="2x"></mdb-icon>
+  </a>
+  <a (click)="getAll(0);all=true;" class="text-success mr-3" style="color: #00bd9d!important;">
+      <mdb-icon fas icon="sync"  size="2x"></mdb-icon>
+  </a>
+    <a routerLink="../newProduct" class="text-success" style="color: #00bd9d!important;">
+        <mdb-icon fas icon="plus-circle" size="2x"></mdb-icon>
+    </a>
+  
+  </span>
+<table id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center">#</th>
+    <th class="text-center"> Designation  </th>
+    <th class="text-center">Prix</th>
+    <th class="text-center">Quantite</th>
+    <th class="text-center">Avis</th>
+    <th class="text-center">Action</th>
+  </tr>
+  <tr *ngFor="let product of productPage.content; let id = index ;">
+    <td>
+      <span>{{(productPage.number*productPage.size)+1+id}}</span>
+    </td>
+    <td>
+      <span>{{product.designation }}</span>
+    </td>
+    <td>
+        <span>{{product.price }} DT</span>
+      </td>
+      <td>
+          <span>{{product.quantity }}</span>
+        </td>
+      <td >
+        <div class="review" *ngFor="let item of [].constructor(5);let id=index;">
+          <mdb-icon  *ngIf="id < product.review" fas icon="star"  class="amber-text "></mdb-icon>
+          <mdb-icon *ngIf="id >= product.review" far icon="star"  class="amber-text "></mdb-icon>
+        </div>
+        </td>
+  
+
+  
+ 
+    <td>
+        <span class="table-remove">
+            <button routerLink="../product/{{product.id}}" type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0"  mdbWavesEffect ><mdb-icon fas icon="list"></mdb-icon></button>
+            <button routerLink="../updateProduct/{{product.id}}"  type="button"  mdbBtn  rounded="true" size="sm" class="my-0 btn-custom"    mdbWavesEffect ><mdb-icon far icon="edit"></mdb-icon> </button>
+            <button (click)="selectedProduct=product;confirmDelete.show();"  type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" mdbWavesEffect ><mdb-icon far icon="trash-alt"></mdb-icon></button>
+          </span>
+     
+</td>
+   </tr>
+   <tr>
+     
+     <td colspan="7" >
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pg-blue justify-content-center">
+               
+              <li class="page-item" [class.disabled]="productPage.first">
+                <a (click)=getProductPage((productPage.number-1)) class="page-link" aria-label="Previous" mdbWavesEffect>
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" mdbWavesEffect>{{(productPage.number*productPage.size)+1}} -
+                  {{(productPage.number*productPage.size)+productPage.numberOfElements}}
+                    de {{productPage.totalElements}}</a></li>
+              <li class="page-item" [class.disabled]="productPage.last">
+                <a (click)=getProductPage((productPage.number+1)) class="page-link" aria-label="Next" mdbWavesEffect>
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+     </td>
+      
+   </tr>
+</table>
+
+
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Recherche</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+          <form >
+        <div class="">
+            <div class="md-form mb-1">
+                <a *ngIf="!searchForm.advancedSearch" (click)="searchForm.advancedSearch=true" class="prefix "  >
+                    <mdb-icon fas icon="chevron-up"></mdb-icon>
+                </a>
+                <a *ngIf="searchForm.advancedSearch" (click)="searchForm.advancedSearch=false" class="prefix "  >
+                    <mdb-icon fas icon="chevron-down"></mdb-icon>
+                </a>
+                <input #keyword type="text" [(ngModel)]="searchForm.keyword" name="keyword" class="form-control validate"
+                  mdbInput>
+                 
+                <label data-error="wrong" data-success="right" for="keyword">Mot Cle</label>
+                
+              </div>
+        </div>
+        <div  *ngIf="searchForm.advancedSearch" >
+            <p>Recherche Avancee</p>
+            <!-- Material form row -->
+
+    <!-- Grid row -->
+    <div class="form-row">
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Material input -->
+        <div class="md-form mt-0">
+            <select #category  [(ngModel)]="searchForm.category"  name="category" class="browser-default custom-select">
+                <option value="0" selected>Choisir une categorie</option>
+                <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                
+              </select>
+        </div>
+      </div>
+      <!-- Grid column -->
+  
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Material input -->
+        <div class="md-form mt-0">
+            <select class="browser-default custom-select" [(ngModel)]="searchForm.subCategory"  name="subCategory" >
+                <option value="0" selected>Choisir une  sous categorie</option>
+                <option *ngFor="let subcategory of filter(category.value)" value="{{subcategory.id}}">{{subcategory.name}}</option>
+              </select>
+        </div>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+
+  <!-- Material form row -->
+           
+        </div>
+      </form>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="search();frame.hide();all=false" type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect>recherche
+            <mdb-icon fas icon="search" class="ml-1"></mdb-icon>
+        </a>
+        <a type="button" mdbBtn color="primary" outline="true" class="waves-effect" mdbWavesEffect (click)="frame.hide()">Annuler</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--confirm delete Modal-->
+<div mdbModal #confirmDelete="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Voulez- vous supprimer le produit {{selectedProduct.designation}}  ?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="deleteProduct(selectedProduct.id);confirmDelete.hide()" mdbBtn color="danger" outline="true" class="waves-effect"
+          mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="confirmDelete.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--confirm delete Modal-->
+

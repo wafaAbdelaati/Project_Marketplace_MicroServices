@@ -1,0 +1,151 @@
+<h3 class="mb-4 h3-responsive ">La liste des clients</h3>
+
+<table id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center">#</th>
+    <th class="text-center"> Nom et Prenom  </th>
+    <th class="text-center">Email</th>
+    <th class="text-center">Numero de telephone</th>
+    <th class="text-center">Compte</th>
+    <th class="text-center">Action</th>
+  </tr>
+  <tr *ngFor="let customer of customers; let id = index ;">
+    <td>
+      <span>{{id+1}}</span>
+    </td>
+    <td>
+      <span>{{customer.firstname }} {{customer.lastname }}</span>
+    </td>
+    <td>
+        <span> {{customer.mail }}</span>
+      </td>
+      <td>
+          <span> {{customer.phoneNumber }}</span>
+        </td>
+    <td>
+       <span *ngIf="customer.isActive">Activé</span>
+      <span *ngIf="!customer.isActive">Désactivé</span> 
+    </td>
+  
+ 
+    <td>
+      <span class="table-remove">
+        <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0 btn-custom" data-toggle="modal" data-target="#basicExample"  (click)="show(customer)" mdbWavesEffect ><mdb-icon fas icon="list"></mdb-icon></button>
+       </span>
+</td>
+   </tr>
+</table>
+
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header btn-custom">
+        <p class="heading lead">{{selectedcustomer.firstname}} {{selectedcustomer.lastname}}</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+
+      <div class="modal-body mx-3 ">
+    
+      <div class="md-form mb-4 mt-0">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="text" id="defaultForm-email"  [(ngModel)]="selectedcustomer.mail" [ngModelOptions]="{standalone: true}" 
+          class="form-control" disabled  mdbInput>
+          <label data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
+        </div>
+    
+
+  <div class="md-form mb-4 mt-0">
+      <mdb-icon fas icon="mobile-alt" class="grey-text"></mdb-icon>
+    <input type="text"  class="form-control"  [(ngModel)]="selectedcustomer.phoneNumber" 
+    [ngModelOptions]="{standalone: true}" disabled  mdbInput>
+    <label data-error="wrong" data-success="right" for="defaultForm-pass">Numero de telephone</label>
+  </div>
+  <div class="md-form mb-4 mt-0">
+      <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon>
+ 
+    <input type="text"  class="form-control "  [(ngModel)]="selectedcustomer.address" 
+    [ngModelOptions]="{standalone: true}" disabled  mdbInput>
+    <label data-error="wrong" data-success="right" for="defaultForm-pass">Addresse</label>
+  </div>
+  <div class="md-form mb-4 mt-0">
+      <mdb-icon fas icon="map-marker-alt" class="grey-text"></mdb-icon>
+ 
+    <input type="text"  class="form-control "  [(ngModel)]="selectedcustomer.deliveryAddress" 
+    [ngModelOptions]="{standalone: true}" disabled  mdbInput>
+    <label data-error="wrong" data-success="right" for="defaultForm-pass">Addresse de livraison</label>
+  </div>
+  <div class="row">
+      <!-- Grid column -->
+      <div class="col">
+             <div class="md-form mb-4 mt-0">
+            <mdb-icon far icon="user-circle" class="grey-text"></mdb-icon>
+            <input type="text"   [(ngModel)]="selectedcustomer.gender" [ngModelOptions]="{standalone: true}" 
+            class="form-control " disabled  mdbInput>
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Genre</label>
+          </div>
+      </div>
+      <!-- Grid column -->
+      <!-- Grid column -->
+      <div class="col">
+          
+          <div class="md-form mb-4 mt-0">
+              <mdb-icon far icon="address-card" class="grey-text"></mdb-icon>
+            <input *ngIf="selectedcustomer.isActive" type="text"  class="form-control "  value="Activé" disabled  mdbInput>
+            <input *ngIf="!selectedcustomer.isActive" type="text"  class="form-control "  value="Désactivé" disabled  mdbInput>
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Compte</label>
+          </div>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <div class="row">
+        <!-- Grid column -->
+        <div class="col">
+               <div class="md-form mb-4 mt-0">
+                  <mdb-icon fas icon="comments" class="grey-text"></mdb-icon>
+              <input *ngIf="selectedcustomer.reviews !== undefined" type="text"   [(ngModel)]="selectedcustomer.reviews.length" [ngModelOptions]="{standalone: true}" 
+              class="form-control " disabled  mdbInput>
+              <label data-error="wrong" data-success="right" for="defaultForm-email">Avis</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col">
+            
+            <div class="md-form mb-4 mt-0">
+                <mdb-icon fas icon="clipboard-list" class="grey-text"></mdb-icon>
+              <input type="text"  class="form-control "  *ngIf="selectedcustomer.orders !== undefined"
+                [(ngModel)]="selectedcustomer.orders.length" [ngModelOptions]="{standalone: true}" disabled  mdbInput>
+              <label data-error="wrong" data-success="right" for="defaultForm-pass">Commandes</label>
+            </div>
+        </div>
+        <!-- Grid column -->
+      </div>
+           
+      
+          
+        
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="change(false)"  *ngIf="selectedcustomer.isActive" type="button" mdbBtn color="primary" class="waves-light btn-custom" mdbWavesEffect>Desactiver le compte
+            <mdb-icon fas icon="times"></mdb-icon>
+        </a>
+        <a (click)="change(true)"  *ngIf="!selectedcustomer.isActive" type="button" mdbBtn color="primary" class="waves-light btn-custom" mdbWavesEffect>Activer le compte
+            <mdb-icon fas icon="check"></mdb-icon>
+          </a>
+        <a type="button" mdbBtn color="primary" outline="true" class="custom waves-effect" mdbWavesEffect (click)="frame.hide()">Fermer</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

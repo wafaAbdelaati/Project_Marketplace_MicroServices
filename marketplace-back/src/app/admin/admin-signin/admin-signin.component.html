@@ -1,0 +1,99 @@
+<!--Main Navigation-->
+<header class="intro-header">
+
+ 
+  
+    <!--Intro Section-->
+    <section class="view intro-2">
+      <div class="full-bg-img mask rgba-gradient">
+        <div class="container flex-center">
+          <div class="d-flex align-items-center content-height w-100">
+            <div class="row flex-center pt-5 mt-3 w-100">
+              <div class="col-md-6 col-xl-5 offset-xl-1">
+                <!--Form-->
+                <div class="card wow fadeInRight" data-wow-delay="0.3s">
+                  <div *ngIf="first" class="card-body">
+                    <!--Header-->
+                    <div class="text-center">
+                      <h3 class="white-text"><i class="fas fa-user white-text"></i> Inscription</h3>
+                      <hr class="hr-light">
+                    </div>
+                    <form [formGroup]="signupFormGroup">
+                    <!--Body-->
+                    <div class="md-form">
+                      <i class="fas fa-user prefix white-text"></i>
+                      <input type="text" id="firstname" class="form-control" formControlName="firstname" mdbInput>
+                      <label for="form3">Votre prenom</label>
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-user prefix white-text"></i>
+                        <input type="text" id="lastname" class="form-control" formControlName="lastname" mdbInput>
+                        <label for="form3">Votre nom</label>
+                      </div>
+                    <div class="md-form">
+                      <i class="fas fa-envelope prefix white-text"></i>
+                      <input type="text" id="mail" class="form-control" formControlName="mail" mdbInput>
+                      <label for="form2">Votre email</label>
+                    </div>
+  
+                    <div class="md-form">
+                      <i class="fas fa-lock prefix white-text"></i>
+                      <input type="password" id="password" class="form-control" formControlName="password" mdbInput>
+                      <label for="form4">Votre mot de passe</label>
+                    </div>
+  
+                    <div class="text-center">
+                      <button (click)="signup()" mdbBtn style="background-color: #00bd9d;" class="waves-light" mdbWavesEffect>S'inscrire</button>
+                    <!--  <hr class="hr-light mb-3 mt-4">
+  
+                       <div class="inline-ul text-center d-flex justify-content-center">
+                        <a class="icons-sm tw-ic px-4"><i class="fab fa-twitter white-text"></i></a>
+                        <a class="icons-sm li-ic px-4"><i class="fab fa-linkedin-in white-text"> </i></a>
+                        <a class="icons-sm ins-ic px-4"><i class="fab fa-instagram white-text"> </i></a>
+                      </div> -->
+                    </div>
+                  </form>
+                  </div>
+                  <div *ngIf="!first" class="card-body">
+                      <!--Header-->
+                      <div class="text-center">
+                        <h3 class="white-text"><i class="fas fa-user white-text"></i> Authentification</h3>
+                        <hr class="hr-light">
+                      </div>
+                      <form [formGroup]="signinFormGroup">
+                      <!--Body-->
+                      <div *ngIf="error2" class="alert alert-danger" role="alert">
+                          Votre Compte est desactivee!
+                        </div>
+                      <div class="md-form">
+                        <i class="fas fa-envelope prefix white-text"></i>
+                        <input type="text" id="mail" class="form-control" formControlName="mail" mdbInput>
+                        <label for="form2">Votre email</label>
+                        <mdb-error *ngIf="error">Mot de passe ou email invailde</mdb-error>
+                      </div>
+    
+                      <div class="md-form">
+                        <i class="fas fa-lock prefix white-text"></i>
+                        <input type="password" id="password" class="form-control" formControlName="password" mdbInput>
+                        <label for="form4">Votre mot de passe</label>
+                        <mdb-error *ngIf="error">Mot de passe ou email invailde</mdb-error>
+                      </div>
+                      
+                     
+                      <div class="text-center">
+                        <button (click)="signin()" mdbBtn style="background-color: #00bd9d;" class="waves-light" mdbWavesEffect>Se connecter</button>
+                    
+                      </div>
+                    </form>
+                    </div>
+                </div>
+                <!--/.Form-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  </header>
+  <!--Main Navigation-->

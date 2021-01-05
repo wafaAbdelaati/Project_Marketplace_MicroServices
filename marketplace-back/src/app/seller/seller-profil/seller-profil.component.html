@@ -1,0 +1,115 @@
+<!-- Extended material form grid -->
+<h3 class="h3-responsive">Informations personnelles</h3>
+<form [formGroup]="settingFormGroup"  >
+  <!-- Grid row -->
+  <div class="form-row">
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input mdbInput type="text" class="form-control" id="lastname"  formControlName="lastname">
+        <label for="lastname">Nom</label>
+      </div>
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input mdbInput type="text" class="form-control" id="firstname"   formControlName="firstname">
+        <label for="firstname">Prenom</label>
+      </div>
+    </div>
+    <!-- Grid column -->
+      <!-- Grid row -->
+  </div>
+  <div class="form-row">
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input mdbInput type="text" class="form-control" id="phoneNumber"  formControlName="phoneNumber">
+        <label for="phoneNumber">Téléphone mobile</label>
+      </div>
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input mdbInput type="date" class="form-control" id="birthDate" formControlName="birthDate">
+        <label for="birthDate">Date de naissance</label>
+      </div>
+    </div>
+    <!-- Grid column -->
+  </div>
+  <!-- Grid row -->
+  <!-- Grid row -->
+  <div class="form-row">
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input mdbInput type="text" class="form-control" id="companyName"   formControlName="companyName">
+        <label for="companyName">Nom de la societe</label>
+      </div>
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input mdbInput type="text" class="form-control" id="address"  formControlName="address">
+        <label for="address">Adresse</label>
+      </div>
+    </div>
+    <!-- Grid column -->
+  </div>
+  <!-- Grid row -->
+  <!-- Grid row -->
+  <div class="row">
+        <!-- Grid column -->
+        <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <input mdbInput type="email" class="form-control" id="mail"   formControlName="mail">
+              <label for="mail">Email</label>
+            </div>
+          </div>
+          <!-- Grid column -->
+    <!-- Grid column -->
+    <div class="col-md-6">
+      <!-- Material input -->
+      <div class="md-form form-group">
+        <input (blur)="change()" mdbInput type="password" class="form-control" id="password"  formControlName="password">
+        <label for="password">Mot de passe</label>
+        <div class="error"   *ngIf="settingFormGroup.controls['password'].invalid && (settingFormGroup.controls['password'].dirty || settingFormGroup.controls['password'].touched)">
+         <mdb-error *ngIf="settingFormGroup.controls['password'].hasError('hasNumber') ">Doit contenir au moins 1 chiffre!</mdb-error>
+       <mdb-error *ngIf=" 
+       settingFormGroup.controls['password'].hasError('hasSmallCase')">Doit contenir au moins 1 lettre </mdb-error>
+          </div>
+      </div>
+    </div>
+ 
+  </div>
+  <!-- Grid row -->
+   <!-- Grid row -->
+   <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12 text-right">
+            <!-- Material input -->
+            <div class="md-form form-group">
+            <button [class.disabled]="settingFormGroup.invalid" (click)="update()" type="submit" class="btn btn-custom btn-md">Enregistrer</button>
+            </div>
+          </div>
+          <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+
+
+</form>
+<!-- Extended material form grid -->

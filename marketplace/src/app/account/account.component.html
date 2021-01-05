@@ -1,0 +1,76 @@
+
+
+    
+<div class="container right-side">
+        <div class="row">
+      
+          <!-- Grid column -->
+          <div class="col-md-2" style="padding-left:0;">
+        
+                <div class="list-group" id="list-tab" role="tablist">
+                    <b>
+                        <a routerLink="/account"  class="list-group-item list-group-item-action active"> Mon Compte </a>
+                        <a routerLink="/account/settings" class="list-group-item list-group-item-action"  >Informations personnelle</a>
+                        <a routerLink="/account/address" class="list-group-item list-group-item-action" >Mes adresses</a>
+                        <a routerLink="/account/orders"  class="list-group-item list-group-item-action" >Mes commandes</a>
+                        <a  routerLink="/account/reviews" class="list-group-item list-group-item-action" >Mes avis</a>
+                    </b>
+                    </div>
+          </div>
+          <div class="col-md-10" style="margin-top:3%;">
+            <div class="container">
+                    <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active">
+                                    <h4>Bonjour </h4>
+                                    <p> À partir de votre compte, vous pouvez obtenir l'historique de
+                                         vos commandes et mettre à jour vos informations. Sélectionnez un lien ci-dessous pour afficher ou modifier vos informations. </p>
+                                    <div class="row">
+                                            <div class="col-sm-6 mb-3 mb-md-0">
+                                              <mdb-card>
+                                                <mdb-card-body>
+                                                  <mdb-card-title>
+                                                    <h5>INFORMATIONS PERSONNELLES</h5>
+                                                  </mdb-card-title>
+                                                  <mdb-card-text><h6>{{customer.firstname}} {{customer.lastname}}</h6>
+                                                    <h6>{{customer.mail}}</h6>
+                                                </mdb-card-text>
+                                                  <a routerLink="/account/settings" mdbBtn color="primary">Modifier</a>
+                                                </mdb-card-body>
+                                              </mdb-card>
+                                            </div>
+                                            <div class="col-sm-6">
+                                              <mdb-card>
+                                                <mdb-card-body>
+                                                  <mdb-card-title>
+                                                    <h5>Mes adresses</h5>
+                                                  </mdb-card-title>
+                                                  <mdb-card-text>
+                                                        <h6>Addresse : {{customer.address}}</h6>
+                                                    <h6> Addresse de livraison : {{customer.deliveryAddress}}</h6>
+                                                  </mdb-card-text>
+                                                  <a routerLink="/account/address" mdbBtn color="primary">Modifier</a>
+                                                </mdb-card-body>
+                                              </mdb-card>
+                                            </div>
+                                          </div>
+                            </div>
+                       
+                         </div>
+          
+            </div></div>
+          <!-- Grid column -->
+        
+          <!-- Grid column -->
+        
+      
+        
+        </div>
+      </div>
+        <!-- Grid row -->         
+           
+            
+            
+            
+            
+            
+            

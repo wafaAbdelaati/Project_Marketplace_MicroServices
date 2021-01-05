@@ -1,0 +1,131 @@
+
+<h3 class="mb-4 h3-responsive ">Paramètres de la page  d'accueil - Liste des produits affichés</h3>
+
+<table id="orders" class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center">#</th>
+    <th class="text-center"> Designation  </th>
+    <th class="text-center">Prix</th>
+    <th class="text-center">Avis</th>
+    <th class="text-center">Vendeur</th>
+    <th class="text-center">Accueil</th>
+    <th class="text-center">Action</th>
+  </tr>
+  <tr *ngFor="let product of productPage.content; let id = index ;">
+    <td>
+      <span>{{(productPage.number*productPage.size)+1+id}}</span>
+    </td>
+    <td>
+      <span>{{product.designation }}</span>
+    </td>
+    <td>
+        <span>{{product.price }} DT</span>
+      </td>
+      <td >
+        <div class="review" *ngFor="let item of [].constructor(5);let id=index;">
+          <mdb-icon  *ngIf="id < product.review" fas icon="star"  class="amber-text "></mdb-icon>
+          <mdb-icon *ngIf="id >= product.review" far icon="star"  class="amber-text "></mdb-icon>
+        </div>
+        </td>
+      <td>
+          <span>{{product.seller.firstname }} {{product.seller.lastname }}</span>
+        </td>
+    <td>
+       <span *ngIf="product.inHome">Oui</span>
+      <span *ngIf="!product.inHome">Non</span> 
+    </td>
+  
+ 
+    <td>
+      <span class="table-remove">
+        <button *ngIf="!product.inHome" type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0 btn-custom" 
+         (click)="selectedproduct=product;homeFrame.show()" mdbWavesEffect ><mdb-icon far icon="check-circle"></mdb-icon></button>
+         <button *ngIf="product.inHome" type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" 
+         (click)="selectedproduct=product;homeFrameD.show()" mdbWavesEffect ><mdb-icon far icon="times-circle"></mdb-icon></button>
+       </span>
+</td>
+   </tr>
+   <tr>
+     
+     <td colspan="7" >
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pg-blue justify-content-center">
+               
+              <li class="page-item" [class.disabled]="productPage.first">
+                <a (click)=getProductPage((productPage.number-1)) class="page-link" aria-label="Previous" mdbWavesEffect>
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" mdbWavesEffect>{{(productPage.number*productPage.size)+1}} -
+                  {{(productPage.number*productPage.size)+productPage.numberOfElements}}
+                    de {{productPage.totalElements}}</a></li>
+              <li class="page-item" [class.disabled]="productPage.last">
+                <a (click)=getProductPage((productPage.number+1)) class="page-link" aria-label="Next" mdbWavesEffect>
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+     </td>
+      
+   </tr>
+</table>
+<!--Add To Home Modal-->
+<div mdbModal #homeFrame="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Mise a jour de la page d'accueil</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-check fa-4x animated rotateIn mb-4"></i>
+        <p>Voulez-vous Ajouter le produit  {{selectedproduct.designation}} a la page d'accueil ?</p>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="home(selectedproduct.id,true);homeFrame.hide()" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="primary" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal" (click)="homeFrame.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
+<!--Add To Home Modal-->
+<!--Remove from Home Modal-->
+<div mdbModal #homeFrameD="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Mise a jour de la page d'accueil</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-4x animated rotateIn mb-4"></i>
+        <p>Voulez-vous enlever le produit {{selectedproduct.designation}} de la page d'accueil ?</p>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="home(selectedproduct.id,false);homeFrameD.hide()" mdbBtn color="danger" class="waves-light" mdbWavesEffect>Oui</a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal" (click)="homeFrameD.hide()">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Remove from Home Modal-->
+
+

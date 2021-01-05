@@ -1,0 +1,96 @@
+
+<mdb-navbar  SideClass="navbar navbar-expand-lg navbar-dark unique-color" [containerInside]="false">
+
+    <mdb-navbar-brand>
+        <a class="navbar-brand"routerLink="/home">
+            <img src="assets/logo1.png" height="30" class="d-inline-block align-top" alt="">
+            Marketplace
+        </a>
+      </mdb-navbar-brand>
+  
+      <div   class="btn-group search" >
+          <form mdbDropdownToggle class="form-inline d-none d-md-block " mdbWavesEffect>
+              <div class="row">
+                 <div class="col-md-10" >
+                 <div class="md-form my-0">
+                     <input  class="form-control" type="text" placeholder="Recherche" [formControl]="keyword" (keyup)="keyup(selectField.value);" #selectField>
+                  
+                   </div>
+                 </div>
+                   <div class="col-md-2" >
+                       <a (click)="search()" type="button" mdbBtn floating="true" size="lg" class="btn-fb waves-light" mdbWavesEffect>
+                           <i class="text-white fas fa-search" aria-hidden="true"></i></a>
+
+                 </div>
+              </div>
+              
+             </form>
+          <div *ngIf="searchDropdown" class="dropdown-menu dropdown-primary">
+            <a *ngFor="let category of categoriesSearch " class="dropdown-item" (click)=goTo(category.id) >{{category.name}}  <p class="size">({{category.productsPage.totalElements}} produits)</p></a>
+         
+
+          </div>
+        </div>
+
+        <links>
+  
+   
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            <mdb-icon fas icon="user"></mdb-icon>{{title}} <span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <div  *ngIf="isLoggedIn==true">
+            <a routerLink="/account" class="dropdown-item waves-light" mdbWavesEffect>Espace</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"  >Déconnexion</a>
+          </div>
+            <a *ngIf="isLoggedIn!==true" routerLink="/signup"   class="dropdown-item waves-light" mdbWavesEffect href="#">se connecter</a>
+          </div>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/cart" class="nav-link">
+                <mdb-icon fas icon="shopping-cart"></mdb-icon>
+              Mon Panier
+            </a>
+          </li>
+  
+      </ul>
+      </links>
+  
+  </mdb-navbar>
+  <!--Navbar-->
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark unique-color" [containerInside]="false">
+  
+      <!-- Navbar brand -->
+      <mdb-navbar-brand></mdb-navbar-brand>
+    
+      <!-- Collapsible content -->
+      <links>
+    
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          
+          <li class="nav-item" *ngFor="let category of categories">
+              <a class="nav-link waves-light"   routerLink="/category/C/{{category.id}}"   >
+                {{category.name}}
+              </a>
+            </li>
+            <li  class="nav-item dropdown" dropdown>
+                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                Autres Categroies<span class="caret"></span></a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" >
+                    <a *ngFor="let category of otherCategories" class="dropdown-item waves-light" mdbWavesEffect routerLink="/category/C/{{category.id}}"   >{{category.name}}</a>
+         
+                </div>
+            </li>
+    
+   
+    
+        </ul>
+        <!-- Links -->
+  
+      </links>
+      <!-- Collapsible content -->
+    
+    </mdb-navbar>
+    <!--/.Navbar-->

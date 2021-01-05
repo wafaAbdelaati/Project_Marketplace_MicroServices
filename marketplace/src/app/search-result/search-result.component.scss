@@ -1,0 +1,25 @@
+.right-side{
+    min-height: 505px;
+    max-width: 100%;
+}
+.row {
+    min-height: inherit;
+}
+.nav{
+    height: 100%;
+    padding-left: 5%
+}
+.productCard{
+    margin-bottom: 20px;
+}
+.card {
+    width: 70%;;
+}
+.card-img-top{
+    width: 100%!important;
+    height: 27vh !important;
+    object-fit: fill!important;
+}
+.paginationnav{
+    width: 100%;
+}
